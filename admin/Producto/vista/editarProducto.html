@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Producto</title>
+    <script type="text/javascript" src="../controlador/editarProducto.js"></script>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <script type="text/javascript">
+
+        window.addEventListener("load", loadEvents);
+
+    </script>
+    <h1>Editar Producto</h1>
+
+    <div id="imagenFoto">
+    </div>
+    <form action="../../../comun/datosImagen.php" method="POST" enctype="multipart/form-data">
+        <table>
+            <tr>
+                Producto <input type="number" hidden id="idProduct" name="idProducto">
+            </tr>
+            <tr>
+                <td><label for="imagen">Imagen:</label></td>
+                <td><input type="file" name="imagen" size="20" required></td>
+            </tr>
+            <tr>
+                <td><input type="submit" id="botonEnviar" value="Cambiar Imagen"></td>
+            </tr>
+        </table>
+    </form>
+    <form action="../modelo/editarProducto.php" method="POST">
+        <input type="number" hidden id="idProduct1" name="idProducto">
+        <div>
+            <label for="nombreProducto">Nombre del Producto:</label>
+            <input type="text" id="nombreProducto" name="nombreProducto"></input>
+        </div>
+        <div>
+            <label for="precioProducto">Precio del Producto:</label>
+            <input type="text" id="precioProducto" name="precioProducto"></input>€
+        </div>
+        <div>
+            <button type="submit">Guardar</button>
+        </div>
+    </form>
+    <div>
+        <button id="eliminar">Eliminar</button>
+    </div>
+    
+</body>
+
+</html>
