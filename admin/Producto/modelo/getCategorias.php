@@ -2,10 +2,10 @@
 
     include("../../comun/conexionBD.php");
 
-    $result = $mysqli->query("SELECT * from producto");
+    $result = $mysqli->query("SELECT * from categoria");
     echo ($mysqli->error);
     while ($row = $result->fetch_object()) {
-        echo ($row->ID_Producto . " / " . $row->img ." / ".$row->Nombre . " / ".$row->Precio . "//");
+        echo ($row->ID_Categoria . "/" . $row->Categoria. "//");
     }
     
 

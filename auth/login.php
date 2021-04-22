@@ -36,14 +36,12 @@
             echo ($mysqli->error);
             header("location:../paginaHome.php");
          }else{
-            echo("contraseña incorrecta".$email."           ".$password."           ".$row->Password);
+            echo("contraseña incorrecta".$email." ".$password." ".$row->Password);
             header("location:login.html");
          }
             
         }
     $mysqli->close();
     ?>
-
 </body>
-
 </html>

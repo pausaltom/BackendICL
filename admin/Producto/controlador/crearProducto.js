@@ -1,3 +1,21 @@
+function procesarCategorias() {
+    var selectorCategoria = document.getElementById("categoriaProducto");
+
+    if (this.readyState == 4 && this.status == 200) {
+        var stringAll = this.responseText;
+        console.log('string'+stringAll);
+
+        var arrayliCat = stringAll.split("//");
+        console.log('arrayliCat  '+arrayliCat);
+
+        arrayliCat.forEach(element => {
+            var arraycomponentesCat = element.split("/");
+            selectorCategoria.innerHTML += "<option>" + arraycomponentesCat[1] + "</option>" + "\n"
+            //    console.log("arrayComponents "+arraycomponentesCat[0]);
+
+        });
+    }
+}
 function procesarProducto() {
     if (this.readyState == 4 && this.status == 200) {
         var stringProducto = this.responseText;
@@ -35,7 +53,8 @@ function procesarSession() {
 }
 function loadEvents() {
     comprobarSession();
-    loadProducto();
+    loadCategorias();
+    comprobarProducto();
     var idProduct =getURLParams();
     document.getElementById("idProduct").setAttribute("value",idProduct);
     document.getElementById("idProduct1").setAttribute("value",idProduct);
@@ -43,15 +62,22 @@ function loadEvents() {
         location.reload();
     });
 }
+
 function comprobarSession() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = procesarSession;
     xmlhttp.open("GET", "http://localhost/php/comun/comprobarSession.php", true);
     xmlhttp.send();
 }
+function comprobarProducto() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = procesarProducto;
+    xmlhttp.open("GET","http://localhost/php/admin/Producto/modelo/getProductoPorID.php?Producto="+getURLParams(), true);
+    xmlhttp.send();
+}
 function loadCategorias() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = procesarCategorias;
-    xmlhttp.open("GET", "http://localhost/php/admin/Producto/modelo/loadCategorias.php", true);
+    xmlhttp.open("GET","http://localhost/php/admin/Producto/modelo/loadCategorias.php", true);
     xmlhttp.send();
 }

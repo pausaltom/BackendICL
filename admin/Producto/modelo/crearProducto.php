@@ -9,9 +9,7 @@
         $nombreProducto=$_POST['nombreProducto'];
         $precioProducto=$_POST['precioProducto'];
 
-        
-
-        $userEmail=$_SESSION['usuario'];
+        $userEmail=$_SESSION['usuario']['email'];
         $usuarioUpdated=$mysqli->query("UPDATE producto SET Nombre = '$nombreProducto' , Precio='$precioProducto' WHERE ID_Producto=$id");    
         echo ($mysqli->error);
         if(!$mysqli->error){
