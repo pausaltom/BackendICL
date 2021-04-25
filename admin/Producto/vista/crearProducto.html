@@ -25,29 +25,27 @@
     <h1>Editar Producto</h1>
 
     <div id="imagenFoto">
+        <!--<img id="img" src="" alt="Imagen Producto" height="200" width="200">-->
     </div>
-    <form action="../../../comun/datosImagen.php" method="POST" enctype="multipart/form-data">
+    <form action="../../../comun/mostrarImg.php" method="POST" enctype="multipart/form-data">
         <table>
             <tr>
-                Producto <input type="number" hidden id="idProduct" name="idProducto">
-            </tr>
-            <tr>
                 <td><label for="imagen">Imagen:</label></td>
-                <td><input type="file" name="imagen" size="20" required></td>
+                <td><input type="file" name="imagen" id="imagenInput" size="20" required></td>
             </tr>
             <tr>
-                <td><input type="submit" id="botonEnviar" value="Cambiar Imagen"></td>
+                <td><input type="submit" value="Validar Imagen"></td>
             </tr>
         </table>
     </form>
     <form action="../modelo/crearProducto.php" method="POST">
         <div>
             <label for="nombreProducto">Nombre del Producto:</label>
-            <input type="text" id="nombreProducto" name="nombreProducto"></input>
+            <input type="text" id="nombreProducto" name="nombreProducto" required></input>
         </div>
         <div>
             <label for="precioProducto">Precio del Producto:</label>
-            <input type="text" id="precioProducto" name="precioProducto"></input>€
+            <input type="number" min="0"  id="precioProducto" name="precioProducto" required></input>€
         </div>
         <div>
             <label for="categoriaProducto">Categoria del Producto:</label>
@@ -55,9 +53,12 @@
             </select>
         </div>
         <div>
-            <button type="submit">Crear Producto</button>
+            <button type="button" id="btnEnviar">Crear Producto</button>
         </div>
     </form>
+    <div id="errores">
+
+    </div>
     
 </body>
 

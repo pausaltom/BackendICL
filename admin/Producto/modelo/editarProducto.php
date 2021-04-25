@@ -17,5 +17,6 @@
         if(!$mysqli->error){
             header("location: ../../../paginaHome.php");
         }
+        $usuarioUpdated->free();
         $mysqli->close();
     ?>

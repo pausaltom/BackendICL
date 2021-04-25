@@ -9,6 +9,7 @@ function procesarProducto() {
         var img = document.createElement("img");
         img.src = rutaImagen(arrayAtributosProduct[0]);
         img.width =200;
+        img.height=200;
         img.alt = "Imagen Producto";
         foto.appendChild(img);
         var nombreProducto = document.getElementById("nombreProducto");
