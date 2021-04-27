@@ -21,7 +21,7 @@ if (!isset($_SESSION["usuario"]) || ($_SESSION['usuario']['ID_Role']=='2')) {
             move_uploaded_file($_FILES['imagen']['tmp_name'],$carpeta_servidor.$nombre_imagen);
             
 
-            header('Location:' . getenv('HTTP_REFERER'));
+            header("Location:http://localhost/php/admin/Producto/vista/crearProducto.html?imgNombre=".$nombre_imagen);
          }else{
          echo "el formato o extensión del archivo no esta permitido, solo se pueden subir imágenes";
          }

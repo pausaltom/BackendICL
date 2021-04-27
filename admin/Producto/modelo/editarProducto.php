@@ -15,7 +15,7 @@
         $usuarioUpdated=$mysqli->query("UPDATE producto SET Nombre = '$nombreProducto' , Precio='$precioProducto' WHERE ID_Producto=$id");    
         echo ($mysqli->error);
         if(!$mysqli->error){
-            header("location: ../../../paginaHome.php");
+            header("location: ../../../Productos/vista/listaProductos.html");
         }
         $usuarioUpdated->free();
         $mysqli->close();

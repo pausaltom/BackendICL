@@ -25,7 +25,6 @@
     <h1>Editar Producto</h1>
 
     <div id="imagenFoto">
-        <!--<img id="img" src="" alt="Imagen Producto" height="200" width="200">-->
     </div>
     <form action="../../../comun/mostrarImg.php" method="POST" enctype="multipart/form-data">
         <table>
@@ -34,11 +33,11 @@
                 <td><input type="file" name="imagen" id="imagenInput" size="20" required></td>
             </tr>
             <tr>
-                <td><input type="submit" value="Validar Imagen"></td>
+                <td><input type="submit" value="Enviar img al servidor"></td>
             </tr>
         </table>
     </form>
-    <form action="../modelo/crearProducto.php" method="POST">
+    <form id="formularioProducto" method="POST">
         <div>
             <label for="nombreProducto">Nombre del Producto:</label>
             <input type="text" id="nombreProducto" name="nombreProducto" required></input>
@@ -53,13 +52,12 @@
             </select>
         </div>
         <div>
+            <button type="button" id="btnValidar">Validar Producto</button>
             <button type="button" id="btnEnviar">Crear Producto</button>
         </div>
     </form>
     <div id="errores">
-
-    </div>
-    
+        <span id="spanErr"></span>
+    </div>  
 </body>
-
 </html>

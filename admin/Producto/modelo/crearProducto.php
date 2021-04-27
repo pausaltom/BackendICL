@@ -5,15 +5,16 @@
         }
         include("../../../comun/conexionBD.php");
 
-        $id=$_POST['idProducto'];
+        $imagen=$_POST['imagen'];
         $nombreProducto=$_POST['nombreProducto'];
         $precioProducto=$_POST['precioProducto'];
+        $categoriaProducto = $_POST['categoria'];
 
-        $userEmail=$_SESSION['usuario']['email'];
-        $usuarioUpdated=$mysqli->query("UPDATE producto SET Nombre = '$nombreProducto' , Precio='$precioProducto' WHERE ID_Producto=$id");    
+        
+        $result=$mysqli->query("INSERT INTO producto (Nombre,Precio,img,ID_Categoria) VALUES ('$nombreProducto','$precioProducto','$imagen','$categoriaProducto')");    
         echo ($mysqli->error);
         if(!$mysqli->error){
-            header("location: ../../../paginaHome.php");
+            header("location: ../../../Productos/vista/listaProductos.html");
         }
         $mysqli->close();
 ?>

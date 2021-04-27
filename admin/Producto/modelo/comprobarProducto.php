@@ -1,24 +1,33 @@
 <?php
-    session_start();
-    if(!isset($_SESSION["usuario"])||($_SESSION['usuario']['ID_Role'] =='2')){
-         header("location: http://localhost/php/comun/logout.php");
+
+session_start();
+if (!isset($_SESSION["usuario"]) || ($_SESSION['usuario']['ID_Role'] == '2')) {
+    header("location: http://localhost/php/comun/logout.php");
+}
+
+    if (isset($_POST['nombreProducto']) || isset($_POST['precioProducto'])) {
+       $nombre = $_POST['nombreProducto'];
+       $precio = $_POST['precioProducto'];
+       $categoria = $_POST['categoriaProducto'];
     }
-    
-$nombre=$_POST['nombreProducto'];
-    //if (isset($nombre)) {
-        echo "  ". $nombre;
-    
+   
     include("../../../comun/conexionBD.php");
-    $result = $mysqli->query("SELECT * from producto WHERE Nombre LIKE'$nombre'");
-    echo ($mysqli->error);
     
+    
+    $result = $mysqli->query("SELECT * from producto WHERE Nombre LIKE '$nombre'");
+    echo ($mysqli->error);
+
     if (mysqli_num_rows($result) != 0) {
-       
-        echo "Producto válido";
-        
+            echo ('Ya existe un Producto con este Nombre/1');
     } else {
-        echo ('Ya existe un Producto con este Nombre');
+            if ($nombre == ""||$precio=="") {
+               echo "Faltan campos por rellenar/2";
+            }else{
+               echo "Producto válido/0"; 
+            }
+            
     }
         $result->free();
         $mysqli->close();
-    ?>
+    
+?>
