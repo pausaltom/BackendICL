@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajustes Cuenta</title>
+    <link type="text/javascript" href="../controlador/perfilusuario.js">
+    <style>
+        input:invalid+span:after {
+            position: absolute;
+            content: '✖';
+            padding-left: 5px;
+            color: #8b0000;
+        }
+
+        input:valid+span:after {
+            position: absolute;
+            content: '✓';
+            padding-left: 5px;
+            color: #009000;
+        }
+
+        #erroresForm {
+            color: #8b0000;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        window.addEventListener("load",loadEvents);
+    </script>
+    <form action="" method="POST" name="formularioSignUp">
+        Nombre de usuario: <input type="text" name="nombre" id="nombre" required></input>
+        </br>
+        </br>
+        Contraseña: <input type="password"  id="password" name="password" required></input>
+        </br>
+        </br>
+        Email: Email: <input type="email" id="email" name="email" required></input>
+        </br>
+        </br>
+        Teléfono: <input type="text" id="telefono" name="telefono" required placeholder="xxx-xxx-xxx" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"></input>
+        <span class="validity"></span>
+        </br>
+        <span id="erroresForm" style="color: red;"></span>
+        </br>
+        <input type="submit" name="enviar"></input>
+
+    </form>
+</body>
+</html>
