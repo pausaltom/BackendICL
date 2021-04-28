@@ -27,28 +27,27 @@ function procesarProducto() {
         console.log('err ' + err);
 
         var span = document.getElementById("spanErr");
-        if (err[1] === "1" || err[1]==="2") {
+        if (err[1] === "1" || err[1] === "2") {
             span.innerHTML = err[0];
             span.style = "color:red;";
             //divErr.appendChild(span1);
-        } else if (err[1] === "0" ) {
+        } else if (err[1] === "0") {
             span.innerHTML = err[0];
             span.style = "color:green;";
+            var img = document.getElementById("imagenInput").files[0].name;
+            var selectorcategoria = document.getElementById("categoriaProducto");
+            var catValue = selectorcategoria.options[selectorcategoria.selectedIndex].value;
+            var catInt = parseInt(catValue);
+            document.getElementById("IDcategoria").setAttribute("value", catInt);
+            console.log("nIMG " + img)
+            document.getElementById("imagen").setAttribute("value", img);
         }
 
 
 
     }
 }
-/*function procesarIDProducto() {
-    if (this.readyState == 4 && this.status == 200) {
-        var string = this.responseText;
-        console.log('result ' + string);
-        document.getElementById("idProduct").setAttribute("value", string);
 
-
-    }
-}*/
 
 function previewImg(e) {
     // Creamos el objeto de la clase FileReader
@@ -69,7 +68,7 @@ function previewImg(e) {
         preview.innerHTML = '';
         preview.append(image);
     };
-    reader.readAsDataURL(e.target.files[0]);
+    //reader.readAsDataURL(e.target.files[0]);
 }
 
 var role;
@@ -82,36 +81,35 @@ function procesarSession() {
         }
     }
 }
-// function esProductoValido() {
-//     var nombre = document.getElementById("nombreProducto").value;
-//     console.log('nombre '+nombre);
-
-
-//     return nombre;
-
-
-// }
-function getURLParams() {
-    const queryString = window.location.search;
-    console.log(queryString);
-    const urlParams = new URLSearchParams(queryString);
-    const nombreIMG = urlParams.get('imgNombre')
-    console.log(nombreIMG);
-    return nombreIMG;
+function procesarIMG() {
+    if (this.readyState == 4 && this.status == 200) {
+        var str = this.responseText;
+        console.log('img ' + str);
+        var imgNombre = str.split("/");
+        console.log("imgNom " + imgNombre);
+        var span = document.getElementById("spanErr");
+        if (imgNombre[1] === "1" || imgNombre[1] === "2") {
+            span.innerHTML = imgNombre[0];
+            span.style = "color:red;";
+        } else if (imgNombre[1] === "0") {
+            span.innerHTML = "La imagen" + imgNombre[0] + " és totalmente válida";
+            span.style = "color:green;";
+        }
+    }
 }
 function loadEvents() {
     comprobarSession();
     loadCategorias();
-    //getIDUltimoProducto();
-    document.getElementById("imagenInput").addEventListener("change", previewImg);
+    //previsualizamos imagen y la enviamos a la carpeta uploads de nuestro servidor
+    var inputIMG = document.getElementById("imagenInput");
+    inputIMG.addEventListener("change", previewImg);
+    document.getElementById("enviar").addEventListener("click", imagen);
+    //--------------------------------------------------------------------
+    //al validar la creación de productos miramos que no hay ningún producto creado con ese nombre
     var btnValidar = document.getElementById("btnValidar");
     btnValidar.addEventListener("click", comprobarProducto);
-    var btnCrear = document.getElementById("btnEnviar");
-    btnCrear.addEventListener("click",()=>{
-        var img = getURLParams();
-        crearProducto(img);
-    })
-    
+
+
 
 }
 function comprobarSession() {
@@ -120,23 +118,6 @@ function comprobarSession() {
     xmlhttp.open("GET", "http://localhost/php/comun/comprobarSession.php", true);
     xmlhttp.send();
 }
-function getIDUltimoProducto() {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = procesarIDProducto;
-    xmlhttp.open("GET", "http://localhost/php/admin/Producto/modelo/getIDUltimoProducto.php", true);
-    xmlhttp.send();
-}
-function crearProducto(nombreIMG) {
-    var selectorcategoria = document.getElementById("categoriaProducto");
-    var catValue = selectorcategoria.options[selectorcategoria.selectedIndex].value;
-    console.log('val '+catValue);
-    var formData = new FormData(document.getElementById("formularioProducto"));
-    formData.append("imagen",nombreIMG);
-    formData.append("categoria",catValue);
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "http://localhost/php/admin/Producto/modelo/crearProducto.php", true);
-    xmlhttp.send(formData);
-}
 function comprobarProducto() {
     var formData = new FormData(document.getElementById("formularioProducto"));
     var xmlhttp = new XMLHttpRequest();
@@ -144,6 +125,14 @@ function comprobarProducto() {
     xmlhttp.open("POST", "http://localhost/php/admin/Producto/modelo/comprobarProducto.php", true);
     xmlhttp.send(formData);
 }
+function imagen() {
+    var formData = new FormData(document.getElementById("formimg"));
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = procesarIMG;
+    xmlhttp.open("POST", "http://localhost/php/comun/mostrarImg.php", true);
+    xmlhttp.send(formData);
+}
+
 function loadCategorias() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = procesarCategorias;

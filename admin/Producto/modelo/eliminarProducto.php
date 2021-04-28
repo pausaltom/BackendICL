@@ -13,7 +13,7 @@
         $usuarioUpdated=$mysqli->query("DELETE FROM producto WHERE producto.ID_Producto=$id");    
         echo ($mysqli->error);
         if(!$mysqli->error){
-            header("location: ../../../paginaHome.php");
+            header("location: ../../../Productos/vista/listaProductos.html");
         }
         $mysqli->close();
 ?>

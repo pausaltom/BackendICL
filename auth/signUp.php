@@ -46,7 +46,7 @@
                 session_start();
                 $_SESSION['usuario'] = array();
                 $_SESSION['usuario']['email'] = $email;
-                $_SESSION['usuario']['ID_Role'] = '2';
+                $_SESSION['usuario']['ID_Role'] = '2';               
                 $mysqli->query("UPDATE usuario SET validado=1 WHERE usuario.Email ='$email'");
                 echo ($mysqli->error);
                 echo ("<div id='Div1'>

@@ -22,29 +22,29 @@
     <script type="text/javascript">
         window.addEventListener("load",loadEvents);
     </script>
-    <h1>Editar Producto</h1>
+    <h1>Crear Producto</h1>
 
     <div id="imagenFoto">
     </div>
-    <form action="../../../comun/mostrarImg.php" method="POST" enctype="multipart/form-data">
+    <form id="formimg" action="" method="POST" enctype="multipart/form-data">
         <table>
             <tr>
                 <td><label for="imagen">Imagen:</label></td>
                 <td><input type="file" name="imagen" id="imagenInput" size="20" required></td>
             </tr>
             <tr>
-                <td><input type="submit" value="Enviar img al servidor"></td>
+                <td><input type="button" id="enviar" value="Enviar img al servidor"></td>
             </tr>
         </table>
     </form>
-    <form id="formularioProducto" method="POST">
+    <form action="../modelo/crearProducto.php" id="formularioProducto" method="POST">
         <div>
             <label for="nombreProducto">Nombre del Producto:</label>
             <input type="text" id="nombreProducto" name="nombreProducto" required></input>
         </div>
         <div>
             <label for="precioProducto">Precio del Producto:</label>
-            <input type="number" min="0"  id="precioProducto" name="precioProducto" required></input>€
+            <input type="number" min="0" step="0.01"  id="precioProducto" name="precioProducto" required></input>€
         </div>
         <div>
             <label for="categoriaProducto">Categoria del Producto:</label>
@@ -52,8 +52,12 @@
             </select>
         </div>
         <div>
+            <input type="text" name="imagen" id="imagen" >
+            <input type="text" name="IDcategoria" id="IDcategoria" >
+        </div>
+        <div>
             <button type="button" id="btnValidar">Validar Producto</button>
-            <button type="button" id="btnEnviar">Crear Producto</button>
+            <button type="submit" id="btnEnviar">Crear Producto</button>
         </div>
     </form>
     <div id="errores">
