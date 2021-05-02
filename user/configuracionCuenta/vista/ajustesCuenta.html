@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajustes Cuenta</title>
-    <link type="text/javascript" href="../controlador/perfilusuario.js">
-    <style>
+    <script type="text/javascript" src="../controlador/perfilusuario.js"></script>
+<style>
         input:invalid+span:after {
             position: absolute;
             content: '✖';
@@ -24,20 +23,47 @@
         #erroresForm {
             color: #8b0000;
         }
+        body{
+            margin-top: 5%;
+            text-align: center;
+        }
+        #checkboxButton{
+            display: none;
+        }
     </style>
 </head>
 <body>
     <script type="text/javascript">
-        window.addEventListener("load",loadEvents);
+        window.addEventListener("load", loadEvents);
     </script>
-    <form action="" method="POST" name="formularioSignUp">
-        Nombre de usuario: <input type="text" name="nombre" id="nombre" required></input>
+    <form action="" method="POST" id="formAjustesCuenta">
+        <input type="number" name="iduser" id="iduser">
+        Nombre: <input type="text" name="nombre" id="nombre" required></input>
         </br>
         </br>
-        Contraseña: <input type="password"  id="password" name="password" required></input>
+        <input type="text" name="contraDefinitiva" id="contraDefinitiva">
+        <div id="divContra">
+            Contraseña: <input type="password" value="********" disabled id="password"></input>
+            <label><input type="checkbox" id="checkboxButton" onchange="cbChecked()" >Cambiar Contraseña</label>
+            
+        </div>
+        <div id="nuevaContra" style="display: none;">
+            <h3>Nueva Contraseña</h3>
+        
+            Contraseña: <input type="password"  id="nuevaPassword"></input>
+            </br>
+            </br>
+            Confirmar contraseña: <input type="password"  id="ConfirmarPassword"></input>
+            </br>
+            </br>
+            <div id="diverr">
+                <span id="spanErr"></span>
+            </div>
+            <button type="reset" id="guardarContra">Guardar</button>
+        </div>
         </br>
-        </br>
-        Email: Email: <input type="email" id="email" name="email" required></input>
+        
+        Email: <input type="email" id="email" name="email" required></input>
         </br>
         </br>
         Teléfono: <input type="text" id="telefono" name="telefono" required placeholder="xxx-xxx-xxx" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"></input>
