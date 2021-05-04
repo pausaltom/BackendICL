@@ -31,7 +31,7 @@ function comprobarContrasIguales() {
         cbCambiarContra.checked = false;
         console.log('this ' + cbCambiarContra.checked);
         cbChecked();
-        encryptPassword(contraNueva);
+        document.getElementById("contraDefinitiva").setAttribute("value",contraNueva);
     }
 }
 
@@ -52,18 +52,37 @@ function cbChecked() {
         console.log('divContra ' + divContra.style.display);
     }
 }
-function passwordEncrypt() {
+var role;
+function procesarSession() { 
+    
     if (this.readyState == 4 && this.status == 200) {
-        var string = this.responseText;
-                console.log("data User " + string);
-                document.getElementById("contraDefinitiva").setAttribute("value", string);
+        role = this.responseText;
+        console.log('role' + role);
+        if ((role != "USERSESSION" && role != "ADMINSESSION" && role != "SUPERADMINSESSION")) {
+            console.log('role '+role);
+            window.location = "../../../comun/logout.php";
         }
+    }
+}
+function procesarAjustes(){
+    if (this.readyState == 4 && this.status == 200) {
+        let string = this.responseText;
+        console.log('Resp del form'+ string);
+    }
 }
 function loadEvents() {
+    comprobarSession();
     loadDatosUser();
     document.getElementById("guardarContra").addEventListener("click", comprobarContrasIguales);
+    document.getElementById("btnEnviar").addEventListener("click", guardarAjustesCuenta);
 
 
+}
+function comprobarSession() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = procesarSession;
+    xmlhttp.open("GET", "http://localhost/php/comun/comprobarSession.php", true);
+    xmlhttp.send();
 }
 
 function guardarAjustesCuenta() {
@@ -80,12 +99,4 @@ function loadDatosUser() {
     xmlhttp.open("GET", "http://localhost/php/user/configuracionCuenta/modelo/loadDatosUsuario.php", true);
     xmlhttp.send();
 
-}
-function encryptPassword(password) {
-    var formData = new FormData();
-    formData.append("password",password);
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = passwordEncrypt;
-    xmlhttp.open("POST", "http://localhost/php/comun/encryptPassword.php", true);
-    xmlhttp.send(formData);
 }
