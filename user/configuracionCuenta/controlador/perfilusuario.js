@@ -1,4 +1,3 @@
-
 function procesarDataUser() {
     if (this.readyState == 4 && this.status == 200) {
         var string = this.responseText;
@@ -31,7 +30,8 @@ function comprobarContrasIguales() {
         cbCambiarContra.checked = false;
         console.log('this ' + cbCambiarContra.checked);
         cbChecked();
-        document.getElementById("contraDefinitiva").setAttribute("value",contraNueva);
+        enciptContra(contraNueva);
+        //document.getElementById("contraDefinitiva").setAttribute("value",contraNueva);
     }
 }
 
@@ -64,17 +64,27 @@ function procesarSession() {
         }
     }
 }
+
 function procesarAjustes(){
     if (this.readyState == 4 && this.status == 200) {
         let string = this.responseText;
         console.log('Resp del form'+ string);
     }
 }
+
+function encriptarContra(){
+    if (this.readyState == 4 && this.status == 200) {
+        let string = this.responseText;
+        console.log('Resp contra'+ string);
+        let contraDef =document.getElementById("contraDefinitiva");
+        contraDef.setAttribute("value",string);
+    }
+}
 function loadEvents() {
     comprobarSession();
     loadDatosUser();
     document.getElementById("guardarContra").addEventListener("click", comprobarContrasIguales);
-    document.getElementById("btnEnviar").addEventListener("click", guardarAjustesCuenta);
+   // document.getElementById("btnEnviar").addEventListener("click", guardarAjustesCuenta);
 
 
 }
@@ -84,9 +94,28 @@ function comprobarSession() {
     xmlhttp.open("GET", "http://localhost/php/comun/comprobarSession.php", true);
     xmlhttp.send();
 }
+function enciptContra(contraNueva) {
+    let form = new FormData();
+    form.append("contra",contraNueva);
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = encriptarContra;
+    xmlhttp.open("POST","http://localhost/php/comun/encryptcontra.php", true);
+    xmlhttp.send(form);
+}
 
 function guardarAjustesCuenta() {
-    var formData = new FormData(document.getElementById("formAjustesCuenta"));
+    var formData = new FormData();
+    console.log(formData)
+    let iduser = document.getElementById("iduser");
+    let nombre = document.getElementById("nombre");
+    let contraDefinitiva = document.getElementById("contraDefinitiva");
+    let email = document.getElementById("email");
+    let telefono = document.getElementById("telefono");
+    formData.append("iduser",iduser);
+    formData.append("nombre",nombre);
+    formData.append("contraDefinitiva",contraDefinitiva);
+    formData.append("email",email);
+    formData.append("telefono",telefono);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = procesarAjustes;
     xmlhttp.open("POST", "http://localhost/php/admin/Producto/modelo/cambiarAjustesCuenta.php", true);
