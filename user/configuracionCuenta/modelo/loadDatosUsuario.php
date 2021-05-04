@@ -11,8 +11,8 @@
         echo ($mysqli->error);
         if(!$mysqli->error){
             $row = $datosUsuario->fetch_object();
-            echo $row->Nombre."/%//".$row->Telefono."/%//".$row->Email."/%//".$row->Password."/%//".$row->ID_Usuario;
+            echo $row->Nombre."/%//".$row->Telefono."/%//".$row->Password."/%//".$row->ID_Usuario;
         }
-        
+        //.$row->Email."/%//"
         $mysqli->close();
 ?>

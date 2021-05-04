@@ -6,12 +6,10 @@
         if($_SERVER['REQUEST_METHOD']=='POST'){
         $id = $_POST['iduser'];
         $nombre=$_POST['nombre'];
-        $password=$_POST['contraDefinitiva'];
         $telefono=$_POST['telefono'];
         include("../../../comun/conexionBD.php");
-        $passwordCrypt= password_hash($password,PASSWORD_DEFAULT);
-        $usuarioUpdated=$mysqli->query("UPDATE usuario SET Nombre = '$nombre' , Telefono = '$telefono',Password = '$passwordCrypt' WHERE ID_Usuario=$id");
-        echo ($mysqli->error);           
+        $usuarioUpdated2=$mysqli->query("UPDATE usuario SET Nombre = '$nombre' , Telefono = '$telefono' WHERE ID_Usuario=$id");
+        echo ($mysqli->error);
         if(!$mysqli->error){
             echo("Cambios guardados/0");
         }else{
@@ -19,5 +17,5 @@
         }  
         
         $mysqli->close();
-    }
+        }
 ?>

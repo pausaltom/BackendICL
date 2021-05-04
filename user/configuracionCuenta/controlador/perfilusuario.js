@@ -7,9 +7,9 @@ function procesarDataUser() {
 
         document.getElementById("nombre").setAttribute("value", datosUser[0]);
         document.getElementById("telefono").setAttribute("value", datosUser[1]);
-        document.getElementById("email").setAttribute("value", datosUser[2]);
-        document.getElementById("contraDefinitiva").setAttribute("value", datosUser[3]);
-        document.getElementById("iduser").setAttribute("value", datosUser[4]);
+        //document.getElementById("email").setAttribute("value", datosUser[2]);
+        document.getElementById("contraDefinitiva").setAttribute("value", datosUser[2]);
+        document.getElementById("iduser").setAttribute("value", datosUser[3]);
     }
 }
 function comprobarContrasIguales() {
@@ -30,8 +30,8 @@ function comprobarContrasIguales() {
         cbCambiarContra.checked = false;
         console.log('this ' + cbCambiarContra.checked);
         cbChecked();
-        enciptContra(contraNueva);
-        //document.getElementById("contraDefinitiva").setAttribute("value",contraNueva);
+        //enciptContra(contraNueva);
+        document.getElementById("contraDefinitiva").setAttribute("value",contraNueva);
     }
 }
 
@@ -84,7 +84,7 @@ function loadEvents() {
     comprobarSession();
     loadDatosUser();
     document.getElementById("guardarContra").addEventListener("click", comprobarContrasIguales);
-   // document.getElementById("btnEnviar").addEventListener("click", guardarAjustesCuenta);
+    document.getElementById("btnEnviar").addEventListener("click", guardarAjustesCuenta);
 
 
 }
@@ -105,20 +105,23 @@ function enciptContra(contraNueva) {
 
 function guardarAjustesCuenta() {
     var formData = new FormData();
-    console.log(formData)
-    let iduser = document.getElementById("iduser");
-    let nombre = document.getElementById("nombre");
-    let contraDefinitiva = document.getElementById("contraDefinitiva");
-    let email = document.getElementById("email");
-    let telefono = document.getElementById("telefono");
+    let iduser = document.getElementById("iduser").value;
+    console.log(iduser)
+    let nombre = document.getElementById("nombre").value;
+    let contraDefinitiva = document.getElementById("contraDefinitiva").value;
+    let telefono = document.getElementById("telefono").value;
     formData.append("iduser",iduser);
     formData.append("nombre",nombre);
     formData.append("contraDefinitiva",contraDefinitiva);
-    formData.append("email",email);
+    if (contraDefinitiva) {
+        
+    } else {
+        
+    }
     formData.append("telefono",telefono);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = procesarAjustes;
-    xmlhttp.open("POST", "http://localhost/php/admin/Producto/modelo/cambiarAjustesCuenta.php", true);
+    xmlhttp.open("POST","http://localhost/php/user/configuracionCuenta/modelo/cambiarAjustesCuenta.php", true);
     xmlhttp.send(formData);
 }
 
