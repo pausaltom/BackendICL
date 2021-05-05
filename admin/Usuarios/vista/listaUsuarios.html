@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
-    <script type="text/javascript" src="../controlador/javascriptProductos.js"></script>
+    <title>Usuarios</title>
+    <script type="text/javascript" src="../controlador/javascriptUsuarios.js"></script>
     <style>
       td{
         text-align: center;
@@ -16,12 +16,15 @@
         window.addEventListener("load",loadEvents);      
         
     </script>    
-    <table id="tablaProductos" style="width: 90%;">
+    <table id="tablaUsuarios" style="width: 90%;">
         <thead>
-          <th>Imagen:</th>
-          <th>Nombre Producto:</th>
-          <th>Precio:</th>
-          <th>Acciones:</th>
+          <th>ID:</th>
+          <th>Nombre:</th>
+          <th>Email:</th>
+          <th>Telefono:</th>
+          <th>Dirección:</th>
+          <th>Roles:</th>
+          <th id="acciones">Acciones:</th>
         </thead>
         <tbody id="tbody">
         </tbody>
@@ -34,7 +37,7 @@
         <button id="siguiente" >Siguiente</button>
         <button id="ultima" >Última</button>
       </div>
-      <a id="crearProd" href="../../admin/Producto/vista/crearProducto.html">Crear Producto</a>
+      <a id="crearUsuario" href="crearUsuario.html">Crear Producto</a>
       
       
 </body>

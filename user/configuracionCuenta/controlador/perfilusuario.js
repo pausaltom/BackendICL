@@ -84,7 +84,7 @@ function loadEvents() {
     comprobarSession();
     loadDatosUser();
     document.getElementById("guardarContra").addEventListener("click", comprobarContrasIguales);
-    document.getElementById("btnEnviar").addEventListener("click", guardarAjustesCuenta);
+    //document.getElementById("btnEnviar").addEventListener("click", guardarAjustesCuenta);
 
 
 }
@@ -113,11 +113,6 @@ function guardarAjustesCuenta() {
     formData.append("iduser",iduser);
     formData.append("nombre",nombre);
     formData.append("contraDefinitiva",contraDefinitiva);
-    if (contraDefinitiva) {
-        
-    } else {
-        
-    }
     formData.append("telefono",telefono);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = procesarAjustes;

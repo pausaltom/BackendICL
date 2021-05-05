@@ -16,4 +16,4 @@
         }
         $productUpdated->free();
         $mysqli->close();
-    ?>
+?>

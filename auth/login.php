@@ -2,12 +2,12 @@
 $email = $_POST['email'];
 $password = $_POST['password'];
 
+
+// $email = mysqli_real_escape_string($mysqli, $_POST['email']);
+// $passwordS = mysqli_real_escape_string($mysqli, $_POST['password']);
+
+//$passwordS = htmlspecialchars($password, $flags = ENT_COMPAT | ENT_HTML401, $encoding = ini_get("default_charset"), $double_encode = true);
 include("../comun/conexionBD.php");
-$email = mysqli_real_escape_string($mysqli, $_POST['email']);
-$passwordS = mysqli_real_escape_string($mysqli, $_POST['password']);
-
-$password = htmlspecialchars($passwordS, $flags = ENT_COMPAT | ENT_HTML401, $encoding = ini_get("default_charset"), $double_encode = true);
-
 $comprobacion = $mysqli->query("SELECT * from usuario WHERE usuario.Email='$email'");
 echo ($mysqli->error);
 if (mysqli_num_rows($comprobacion) <= 0) {
@@ -26,7 +26,7 @@ if (mysqli_num_rows($comprobacion) <= 0) {
         echo ($mysqli->error);
         header("location:../paginaHome.php");
     } else {
-        echo ("contraseña incorrecta" . $email . " " . $password . " " . $row->Password);
+    echo ("contraseña incorrecta"/* . $email ." ". $password ." hh " . $password . " fdfd " . $row->Password*/);
         header("location:login.html");
     }
 }

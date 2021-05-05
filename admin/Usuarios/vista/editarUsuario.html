@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario</title>
+    <script type="text/javascript" src="../controlador/editarUsuario.js"></script>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <script type="text/javascript">
+
+        window.addEventListener("load", loadEvents);
+
+    </script>
+    <h1>Editar Usuario</h1>
+
+    <form action="../modelo/editarUsuario.php" method="POST">
+        <input type="number" style="display: none;"  id="idUsuario" name="idUsuario">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required></input>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" disabled id="email" ></input>
+        </div>
+        <div>
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" name="telefono" required placeholder="xxx-xxx-xxx" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"></input>
+        </div>
+        <div>
+            <label for="role">Role:</label>
+            <select id="selectorRole">
+            </select>
+        </div>
+        <input type="text" style="display: none;" name="idRole" id="IDRole" >
+        <div>
+            <button type="submit">Guardar</button>
+        </div>
+    </form>
+    <div>
+        <button id="eliminar">Eliminar</button>
+    </div>
+    
+</body>
+
+</html>
