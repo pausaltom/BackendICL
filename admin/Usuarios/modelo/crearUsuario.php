@@ -8,16 +8,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombre = $_POST['nombre'];
     $email = $_POST['email'];
     $telefono = $_POST['telefono'];
+    $contrasena = $_POST['contrasena'];
     $idRole = $_POST['idRole'];
-
     include("../../../comun/conexionBD.php");
-
-    $sql = "INSERT INTO usuario (Nombre, Telefono, Email, ID_Role) VALUES ('$nombre','$telefono','$email',$idRole)";
-    $result = $mysqli->query($sql);
+    $comprobacion = $mysqli->query("SELECT * from usuario WHERE usuario.Email='$email'");
     echo ($mysqli->error);
-    if (!$mysqli->error) {
-        header("location: ../vista/listaUsuarios.html");
-        $mysqli->close();
+    if(!empty($comprobacion) && mysqli_num_rows($comprobacion)>0) {
+        echo("Este usuario ya existe");
+    }else{
+        $passwordCrypt= password_hash($contrasena,PASSWORD_DEFAULT);
+        $sql ="INSERT INTO usuario (Nombre, Telefono, Password, Email, ID_Role) VALUES ('$nombre','$telefono','$passwordCrypt','$email',$idRole)";
+        $result = $mysqli->query($sql);
+        echo ($mysqli->error);
+        if (!$mysqli->error) {
+            header("location: ../vista/listaUsuarios.html"); 
+                     
+        }
+    $result->free();  
+    $mysqli->close();
     }
 }
 ?>

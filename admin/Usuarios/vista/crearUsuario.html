@@ -26,7 +26,7 @@
     </script>
     <h1>Editar Usuario</h1>
 
-    <form action="../modelo/crearUsuario.php" method="POST">
+    <form id="formNewUser" action="../modelo/crearUsuario.php" method="POST">
         <div>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required></input>
@@ -34,6 +34,10 @@
         <div>
             <label for="email">Email:</label>
             <input type="email" required name="email" id="email" ></input>
+        </div>
+        <div>
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" required name="contrasena" id="contrasena" ></input>
         </div>
         <div>
             <label for="telefono">Teléfono:</label>
@@ -46,7 +50,7 @@
         </div>
         <input type="number" style="display: none;" name="idRole" id="IDRole" >
         <div>
-            <button type="submit">Crear</button>
+            <button id="btnEnviar" type="submit">Crear</button>
         </div>
     </form>
     
