@@ -40,7 +40,7 @@
         $comprobacion = $mysqli->query("SELECT * from usuario WHERE usuario.Email='$email'");
         if (mysqli_num_rows($comprobacion) <= 0) {
             if ($_POST['password'] == $_POST['ConfirmarPassword']) {
-                $passwordCrypt= password_hash($password, PASSWORD_DEFAULT);
+                require("../comun/encryptcontra.php");
                 $result = $mysqli->query("INSERT INTO usuario (Nombre,Telefono,Password,Email) VALUES ('$nombre','$telefono','$passwordCrypt','$email')");
                 echo ($mysqli->error);
                 session_start();

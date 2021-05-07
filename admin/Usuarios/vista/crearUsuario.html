@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Usuario</title>
+    <title>Crear Usuario</title>
     <script type="text/javascript" src="../controlador/crearUsuario.js"></script>
     <style>
         body {
@@ -14,6 +14,8 @@
         table {
             margin-left: auto;
             margin-right: auto;
+            width: 1200px;
+            width: 200px;
         }
     </style>
 </head>
@@ -24,9 +26,9 @@
         window.addEventListener("load", loadEvents);
 
     </script>
-    <h1>Editar Usuario</h1>
+    <h1>Crear Usuario</h1>
 
-    <form id="formNewUser" action="../modelo/crearUsuario.php" method="POST">
+    <form id="formNewUser"  action="../modelo/crearUsuario.php" method="POST">
         <div>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required></input>

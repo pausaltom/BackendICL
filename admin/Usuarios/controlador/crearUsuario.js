@@ -43,7 +43,7 @@ function loadEvents() {
         console.log('index '+index);
         document.getElementById("IDRole").setAttribute("value",index);
     });
-    //document.getElementById("btnEnviar").addEventListener("click",creacionUsuario)
+    
 }
 function comprobarSession() {
     var xmlhttp = new XMLHttpRequest();
@@ -52,13 +52,11 @@ function comprobarSession() {
     xmlhttp.send();
 }
 function creacionUsuario() {
-    let formData = new FormData();
-    let email =document.getElementById("email").value;
-    console.log(email);
-    formData.append("email",email);
+    const formulario = document.getElementById("formNewUser");
+    var formData = new FormData(formulario);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = procesarUsuario;
-    xmlhttp.open("POST", "http://localhost/php/admin/Usuarios/modelo/crearUsuario.php", true);
+    xmlhttp.open("POST","http://localhost/php/admin/Usuarios/modelo/crearUsuario.php", true);
     xmlhttp.send(formData);
 }
 function loadRoles() {
