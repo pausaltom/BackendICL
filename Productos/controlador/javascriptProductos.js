@@ -17,7 +17,7 @@ function procesarProductos() {
         console.log('string' + stringProductos);
         var arrayliProductos = stringProductos.split("//").filter(Boolean);
         //console.log('arrayliProductos  '+arrayliProductos);
-
+        var numero=1;
         arrayliProductos.forEach(element => {
             var arrayCadaProducto = element.split('/');
             var tbody = document.getElementById("tbody");
@@ -43,13 +43,24 @@ function procesarProductos() {
                 editar.innerHTML = "Editar";
                 td4.appendChild(editar);
             } else {
-                var anadir = document.createElement("a");
-                anadir.href="../../admin/Producto/vista/editarProducto.html?idProduct="+arrayCadaProducto[0];
-                //console.log(anadir.id);
-                //anadir.value = arrayCadaProducto[0];
+                var anadir = document.createElement("button");
+                var cantidad = document.createElement("input");
                 anadir.innerHTML = "Añadir";
-                td4.appendChild(anadir);
+                anadir.id="anadir"+numero;
+                anadir.value=arrayCadaProducto[0];
+                cantidad.type="number";
+                cantidad.min=1;
+                cantidad.max=50;
+                cantidad.value=1;
+                cantidad.id="cantidad"+numero;
+                cantidad.style="width=30px;margin-rigth=10px";
+                anadir.onclick=cambiarCantidad;
 
+                //anadir.href="../../carrito/vista/carrito.html?idProduct="+arrayCadaProducto[0];
+                anadir.append(cantidad);
+                td4.appendChild(anadir);
+                td4.insertBefore(cantidad,anadir);
+                numero++;
             }
             tbody.appendChild(tr);
             tr.appendChild(td1);
@@ -58,6 +69,14 @@ function procesarProductos() {
             tr.appendChild(td4);
         });
     }
+}
+function cambiarCantidad(){
+    let numero =this.id.slice(-1);
+    let cantidad=document.getElementById("cantidad"+numero);
+    console.log(cantidad.value);
+    console.log(cantidad);
+    console.log(this.value);
+    window.location="../../carrito/vista/carrito.html?idProduct="+this.value+"&cantidad="+cantidad.value;
 }
 function rutaImagen(imgName) {
     var rutaImgTemp = "/php/uploads/" + imgName;
@@ -123,10 +142,7 @@ function loadEvents() {
         limpiarTable();
         loadProductos();
     });
-    document.getElementsByClassName("editButton").addEventListener("click",() => {
-        console.log("hola soy el btnEdit "+ getElementsByClassName("editButton").value);
-        window.location="../../admin/Producto/vista/editarProducto.html?idProduct="+document.getElementsByClassName("editButton").value;
-      });
+    
 }
 
 function comprobarSession() {
