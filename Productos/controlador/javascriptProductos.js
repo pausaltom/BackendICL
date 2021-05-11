@@ -2,19 +2,19 @@ var totalPag;
 function procesarProductos() {
     if (this.readyState == 4 && this.status == 200) {
         var string = this.responseText;
-        console.log('string: ' + string);
+        //console.log('string: ' + string);
 
         var k = string.indexOf("#");
-        console.log('k' + k);
+        //console.log('k' + k);
 
         var paginacion = string.slice(k + 1, string.length);
         totalPag = parseInt(paginacion);
-        console.log('pag:' + paginacion);
+        //console.log('pag:' + paginacion);
         
 
         var stringProductos = string.slice(0, k);
 
-        console.log('string' + stringProductos);
+        //console.log('string' + stringProductos);
         var arrayliProductos = stringProductos.split("//").filter(Boolean);
         //console.log('arrayliProductos  '+arrayliProductos);
 
@@ -43,12 +43,22 @@ function procesarProductos() {
                 editar.innerHTML = "Editar";
                 td4.appendChild(editar);
             } else {
+                var cantidad = document.createElement("input");
                 var anadir = document.createElement("a");
+                cantidad.type="number";
+                cantidad.defaultValue=1;
+                cantidad.min=1;
+                cantidad.max=50;
+                cantidad.style="margin-right:10px;width:40px;"
+                
                 anadir.href="../../admin/Producto/vista/editarProducto.html?idProduct="+arrayCadaProducto[0];
                 //console.log(anadir.id);
                 //anadir.value = arrayCadaProducto[0];
                 anadir.innerHTML = "Añadir";
+                anadir.appendChild(cantidad);
                 td4.appendChild(anadir);
+                td4.insertBefore(cantidad,anadir);
+                
 
             }
             tbody.appendChild(tr);
@@ -72,11 +82,11 @@ function procesarSession() {
         role = this.responseText;
         console.log('role' + role);
         if ((role != "NOSESSION" && role != "USERSESSION" && role != "ADMINSESSION" && role != "SUPERADMINSESSION")) {
-            console.log('role '+role);
+            //console.log('role '+role);
             window.location = "../../comun/logout.php";
         }
         if (role === "ADMINSESSION" || role === "SUPERADMINSESSION") {
-            console.log("role "+role);
+            //console.log("role "+role);
             document.getElementById("crearProd").style.visibility = "visible";
         }else{
            
@@ -93,7 +103,7 @@ function loadEvents() {
     loadProductos();
     document.getElementById("primera").addEventListener("click", () => {
         pagina = 1;
-        console.log("pagina"+pagina);
+        //console.log("pagina"+pagina);
         limpiarTable();
         loadProductos();
     });
@@ -103,7 +113,7 @@ function loadEvents() {
         } else {
             pagina--;
         }
-        console.log("pagina"+pagina);
+        //console.log("pagina"+pagina);
         limpiarTable();
         loadProductos();
     });
@@ -113,20 +123,20 @@ function loadEvents() {
         } else {
             pagina++;
         }
-        console.log("pagina"+pagina);
+        //console.log("pagina"+pagina);
         limpiarTable();
         loadProductos();
     });
     document.getElementById("ultima").addEventListener("click", () => {
         pagina = totalPag;
-        console.log("pagina"+pagina);
+        //console.log("pagina"+pagina);
         limpiarTable();
         loadProductos();
     });
-    document.getElementsByClassName("editButton").addEventListener("click",() => {
-        console.log("hola soy el btnEdit "+ getElementsByClassName("editButton").value);
-        window.location="../../admin/Producto/vista/editarProducto.html?idProduct="+document.getElementsByClassName("editButton").value;
-      });
+    //document.getElementsByClassName("editButton").addEventListener("click",() => {
+        //console.log("hola soy el btnEdit "+ getElementsByClassName("editButton").value);
+       // window.location="../../admin/Producto/vista/editarProducto.html?idProduct="+document.getElementsByClassName("editButton").value;
+     // });
 }
 
 function comprobarSession() {
