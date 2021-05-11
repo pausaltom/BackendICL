@@ -58,6 +58,16 @@ function loadEvents() {
     console.log(producto)
     loadProductoPedido(producto);
 }
+function vaciarTodoElCarrito() {
+    var sino = confirm("estas seguro que quieres vaciar el carrito");
+    if(sino == true) {
+      <?php
+      $carrito =$_SESSION["Carrito"];
+      unset($carrito);
+      //header("location: http://localhost/php/Productos/vista/listaProductos.html");
+      ?>
+    }
+  }
 function comprobarSession() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = procesarSession;

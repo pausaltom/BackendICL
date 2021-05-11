@@ -19,7 +19,7 @@ if (mysqli_num_rows($result) != 0) {
                         'Imagen'=>$row->img, 
                         'Nombre' => $row->Nombre, 
                         'Cantidad' => $cantidad, 
-                        'PrecioTotal' => ($row->Precio)*$cantidad 
+                        'Precio' => $row->Precio
                     ); 
     $_SESSION['Carrito'][0]=$producto;  
     }else{
@@ -29,7 +29,7 @@ if (mysqli_num_rows($result) != 0) {
     'Imagen'=>$row->img, 
     'Nombre' => $row->Nombre, 
     'Cantidad' => $cantidad, 
-    'PrecioTotal' => ($row->Precio)*$cantidad 
+    'Precio' => $row->Precio
     ); 
     $_SESSION['Carrito'][$carritolength]=$producto; 
     }
