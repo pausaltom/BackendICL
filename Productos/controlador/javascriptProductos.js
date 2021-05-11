@@ -17,7 +17,7 @@ function procesarProductos() {
         //console.log('string' + stringProductos);
         var arrayliProductos = stringProductos.split("//").filter(Boolean);
         //console.log('arrayliProductos  '+arrayliProductos);
-
+        var numero=1;
         arrayliProductos.forEach(element => {
             var arrayCadaProducto = element.split('/');
             var tbody = document.getElementById("tbody");
@@ -43,23 +43,24 @@ function procesarProductos() {
                 editar.innerHTML = "Editar";
                 td4.appendChild(editar);
             } else {
+                var anadir = document.createElement("button");
                 var cantidad = document.createElement("input");
-                var anadir = document.createElement("a");
+                anadir.innerHTML = "Añadir";
+                anadir.id="anadir"+numero;
+                anadir.value=arrayCadaProducto[0];
                 cantidad.type="number";
-                cantidad.defaultValue=1;
                 cantidad.min=1;
                 cantidad.max=50;
-                cantidad.style="margin-right:10px;width:40px;"
-                
-                anadir.href="../../admin/Producto/vista/editarProducto.html?idProduct="+arrayCadaProducto[0];
-                //console.log(anadir.id);
-                //anadir.value = arrayCadaProducto[0];
-                anadir.innerHTML = "Añadir";
-                anadir.appendChild(cantidad);
+                cantidad.value=1;
+                cantidad.id="cantidad"+numero;
+                cantidad.style="width=30px;margin-rigth=10px";
+                anadir.onclick=cambiarCantidad;
+
+                //anadir.href="../../carrito/vista/carrito.html?idProduct="+arrayCadaProducto[0];
+                anadir.append(cantidad);
                 td4.appendChild(anadir);
                 td4.insertBefore(cantidad,anadir);
-                
-
+                numero++;
             }
             tbody.appendChild(tr);
             tr.appendChild(td1);
@@ -69,12 +70,25 @@ function procesarProductos() {
         });
     }
 }
+function cambiarCantidad(){
+    let numero =this.id.slice(-1);
+    let cantidad=document.getElementById("cantidad"+numero);
+    console.log(cantidad.value);
+    console.log(cantidad);
+    console.log(this.value);
+    añadirProductoCarrito(this.value,cantidad.value);
+}
 function rutaImagen(imgName) {
     var rutaImgTemp = "/php/uploads/" + imgName;
     var rutaImg = rutaImgTemp.split(" ").join("");
     return rutaImg;
 }
-
+function respCarrito() {
+    if (this.readyState == 4 && this.status == 200) {
+        let string = this.responseText;
+        console.log('str' + string);
+    }
+}
 var role;
 function procesarSession() { 
     
@@ -88,6 +102,7 @@ function procesarSession() {
         if (role === "ADMINSESSION" || role === "SUPERADMINSESSION") {
             //console.log("role "+role);
             document.getElementById("crearProd").style.visibility = "visible";
+            document.getElementById("carrito").style.visibility = "hidden";
         }else{
            
         }
@@ -99,6 +114,7 @@ function limpiarTable(){
 
 function loadEvents() {
     document.getElementById("crearProd").style.visibility = "hidden";
+    document.getElementById("carrito").style.visibility = "visible";
     comprobarSession();
     loadProductos();
     document.getElementById("primera").addEventListener("click", () => {
@@ -133,10 +149,7 @@ function loadEvents() {
         limpiarTable();
         loadProductos();
     });
-    //document.getElementsByClassName("editButton").addEventListener("click",() => {
-        //console.log("hola soy el btnEdit "+ getElementsByClassName("editButton").value);
-       // window.location="../../admin/Producto/vista/editarProducto.html?idProduct="+document.getElementsByClassName("editButton").value;
-     // });
+    
 }
 
 function comprobarSession() {
@@ -151,4 +164,15 @@ function loadProductos() {
     xmlhttp.onreadystatechange = procesarProductos;
     xmlhttp.open("GET","http://localhost/php/Productos/modelo/getProductos.php?pagina="+pagina, true);
     xmlhttp.send();
+}
+function añadirProductoCarrito(id,cantidad) {
+    var formData = new FormData();
+    formData.append("idProducto",id);
+    console.log(id);
+    formData.append("cantidad",cantidad);
+    console.log(cantidad)
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange= respCarrito;
+    xmlhttp.open("POST","http://localhost/php/carrito/modelo/carrito.php", true);
+    xmlhttp.send(formData);
 }
