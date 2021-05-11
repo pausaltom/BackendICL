@@ -72,7 +72,12 @@ function loadEvents() {
         document.getElementById("IDRole").setAttribute("value",index);
     });
      document.getElementById("eliminar").addEventListener("click",()=>{
-        window.location="../modelo/eliminarUsuario.php?idUser=" + idUsuario;
+        var opcion=confirm("Estas seguro que deseas borrar el usuario");
+        if (opcion == true) {
+            window.location="../modelo/eliminarUsuario.php?idUser=" + idUsuario;
+        } else {
+            window.location="../vista/listaUsuarios.html";
+        }   
     });
 }
 function comprobarSession() {

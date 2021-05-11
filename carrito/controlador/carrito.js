@@ -5,17 +5,26 @@ function procesarProducto() {
 
         var arrayAtributosProduct = stringProducto.split("/");
         console.log('arrayAtributosProduct  ' + arrayAtributosProduct);
-        var foto = document.getElementById("imagenFoto");
+        let tbody = document.getElementById("tbody");
+        let tr = document.createElement("tr");
+        var foto = document.createElement("td");
         var img = document.createElement("img");
         img.src = rutaImagen(arrayAtributosProduct[0]);
         img.width =200;
         img.height=200;
         img.alt = "Imagen Producto";
         foto.appendChild(img);
-        var nombreProducto = document.getElementById("nombreProducto");
-        nombreProducto.setAttribute("value",arrayAtributosProduct[1]);
-        var precioProducto = document.getElementById("precioProducto");
-        precioProducto.setAttribute("value",arrayAtributosProduct[2]);
+        var nombreProducto = document.createElement("td");
+        nombreProducto.innerHTML= arrayAtributosProduct[1];
+        var cantidad = document.createElement("td");
+        cantidad.innerHTML= arrayAtributosProduct[2];
+        var precioTotal = document.createElement("td");
+        precioTotal.innerHTML=arrayAtributosProduct[3];
+        tbody.appendChild(tr);
+        tr.appendChild(foto);
+        tr.appendChild(nombreProducto);
+        tr.appendChild(cantidad);
+        tr.appendChild(precioTotal);
     }
 }
 function rutaImagen(imgName) {
