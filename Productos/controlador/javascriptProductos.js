@@ -76,6 +76,7 @@ function cambiarCantidad() {
     } else {
         let numero = this.id.slice(-1);
         let cantidad = document.getElementById("cantidad" + numero);
+        
         //console.log(cantidad.value);
         //console.log(cantidad);
         //console.log(this.value);
@@ -178,6 +179,6 @@ function añadirProductoCarrito(id, cantidad) {
     console.log(cantidad)
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = respCarrito;
-    xmlhttp.open("POST", "http://localhost/php/carrito/modelo/carrito.php", true);
+    xmlhttp.open("POST","http://localhost/php/carrito/modelo/carrito.php", true);
     xmlhttp.send(formData);
 }

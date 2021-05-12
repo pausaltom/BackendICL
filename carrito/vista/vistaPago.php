@@ -30,7 +30,7 @@
       $verPedido=$mysqli->query("SELECT p.ID_Pedido,p.Comentario,u.Nombre,p.PrecioTotal,p.Hora,e.Estado,u.Direccion,u.Telefono FROM pedido p, usuario u, estado_pedido e WHERE(p.ID_Usuario=u.ID_Usuario AND p.ID_Estado=e.ID_Estado) AND(p.ID_Pedido=1)");
       $row = $verPedido->fetch_object(); 
     ?>
-    <label for="tablaProductos"><?php P0000 $row->ID_Usuario ?></label>
+    <label for="tablaProductos">P0000 <?php echo $row->ID_Usuario ?></label>
     <table id="tablaProductos" style="width: 90%;">
         <thead>
           <th>Imagen:</th>

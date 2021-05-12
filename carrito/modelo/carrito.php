@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-
 $id=$_POST['idProducto'];
 $cantidad=$_POST['cantidad'];
 include("../../comun/conexionBD.php");
@@ -31,10 +30,10 @@ if (mysqli_num_rows($result) != 0) {
     'Cantidad' => $cantidad, 
     'Precio' => $row->Precio
     ); 
-    $_SESSION['Carrito'][$carritolength]=$producto; 
+    $_SESSION['Carrito'][]=$producto; 
     }
     
-    
+    echo $row->Nombre."#";
     print_r($_SESSION['Carrito']);
     
     $result->free();
@@ -43,5 +42,4 @@ if (mysqli_num_rows($result) != 0) {
     echo ('No existe un producto con este id');
 }
 
-    
 ?>

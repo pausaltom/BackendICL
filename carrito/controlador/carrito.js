@@ -6,7 +6,7 @@ function pasarApagar() {
     let formData = new FormData();
     var coment = document.getElementById("comentario").value;
     var subtotal = document.getElementById("pagar").value;
-    console.log(coment);
+    console.log(coment+"    "+subtotal);
     formData.append("comentario",coment);
     formData.append("subtotal",subtotal);
     var xmlhttp = new XMLHttpRequest();

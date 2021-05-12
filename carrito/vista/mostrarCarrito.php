@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="../controlador/carrito.js"></script>
+  <script type="text/javascript" src="../controlador/carrito.js"></script>
   <title>Carrito de la compra</title>
   <style>
     table {
@@ -60,17 +60,17 @@
           </tr>
       <?php
         }
-       if(isset($_REQUEST['item'])) {
-          $producto = $_REQUEST['item'];
+       if(isset($_GET['item'])) {
+          $producto = $_GET['item'];
           unset($_SESSION["Carrito"][$producto]);
-          echo "<script>alert('Se elimino correctamente el $producto');</script>";
-          header("location: mostrarCarrito.php");
+          sleep(1);
+          header("location: http://localhost/php/carrito/vista/mostrarCarrito.php");
         }
       } else {
         
       ?>
         <script>
-          alert("el carrito esta vacío");
+          alert("El carrito esta vacío");
           window.location = "../../Productos/vista/listaProductos.html";
         </script>
       <?php
