@@ -5,8 +5,7 @@
          }
          include("../../comun/conexionBD.php");
 
-        $userDireccion=$_GET['userDireccion'];
-
+        $userDireccion=addslashes($_GET['userDireccion']);
         
         $userEmail=$_SESSION['usuario']['email'];
         $usuarioUpdated=$mysqli->query("UPDATE usuario SET Direccion='$userDireccion' WHERE usuario.Email='$userEmail'");    

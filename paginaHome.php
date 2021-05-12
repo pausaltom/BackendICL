@@ -22,7 +22,7 @@
     <p><a href="Productos/vista/listaProductos.html">Productos</a></p>
     <p><a href="user/configuracionCuenta/vista/ajustesCuenta.html">Cambiar Ajustes</a></p>
     <?php
-         if($_SESSION['usuario']['ID_Role'] =='3'){
+         if($_SESSION['usuario']['ID_Role'] =='3'||$_SESSION['usuario']['ID_Role'] =='1'){
              ?>
              <p><a href="admin/Usuarios/vista/listaUsuarios.html">Lista Usuarios</a></p>
              <?php

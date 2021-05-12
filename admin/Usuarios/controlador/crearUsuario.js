@@ -29,7 +29,7 @@ function procesarSession() {
     if (this.readyState == 4 && this.status == 200) {
         role = this.responseText;
         console.log('role' + role);
-        if (!role === "SUPERADMINSESSION") {
+        if (role != "SUPERADMINSESSION") {
             window.location = "../../../comun/logout.php";
         }
     }

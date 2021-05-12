@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <script src="../controlador/carrito.js"></script> -->
+  <script src="../controlador/carrito.js"></script>
   <title>Carrito de la compra</title>
   <style>
     table {
@@ -18,15 +18,23 @@
     td {
       text-align: center;
     }
+    textarea {
+      overflow-y: scroll;
+      resize: none;
+    }
   </style>
 </head>
 <body>
+  <script type="text/javascript">
+    window.addEventListener("load",loadEvents);
+</script>
 <?php
         session_start();
         if(!isset($_SESSION["usuario"])){
             header("location: http://localhost/php/auth/login.html");
         }
 ?>
+
   <table id="tablaProductos" style="width: 90%;">
     <thead>
       <th>Imagen:</th>
@@ -55,7 +63,7 @@
        if(isset($_REQUEST['item'])) {
           $producto = $_REQUEST['item'];
           unset($_SESSION["Carrito"][$producto]);
-          echo "<script>alert('Se elimino correctamente el producto')</script>";
+          echo "<script>alert('Se elimino correctamente el $producto');</script>";
           header("location: mostrarCarrito.php");
         }
       } else {
@@ -74,10 +82,14 @@
   <div>
     <strong>El precio total del pedido es: <?php echo $subTotal?>€</strong>
   </div>
+  <div>
+    <label for="comentario">Comentario:</label>
+    <textarea id="comentario" name="textarea" rows="10" cols="30" placeholder="Añada un comentario sobre el pedido si lo requiere"></textarea>
+  </div>
   <a style="margin-right: 5px;" href="../../Productos/vista/listaProductos.html">Volver</a>
   <a href="../modelo/vaciarCarritoTodo.php">Vaciar Carrito</a>
-  <a href="../modelo/pagar.php">Pagar</a>
-        
+  <button value="<?php echo $subTotal?>" id="pagar">Pagar</button>
+    
 </body>
 
 </html>
