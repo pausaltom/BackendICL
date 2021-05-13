@@ -19,19 +19,22 @@ function procesarCategorias() {
 
     }
 }
+
+            
 function procesarProducto() {
     if (this.readyState == 4 && this.status == 200) {
         var string = this.responseText;
         console.log('string ' + string);
         var err = string.split("/");
         console.log('err ' + err);
-
         var span = document.getElementById("spanErr");
         if (err[1] === "1" || err[1] === "2") {
             span.innerHTML = err[0];
             span.style = "color:red;";
+            document.getElementById("btnEnviar").setAttribute("disabled",true);
             //divErr.appendChild(span1);
         } else if (err[1] === "0") {
+            document.getElementById("btnEnviar").setAttribute("disabled",false);
             span.innerHTML = err[0];
             span.style = "color:green;";
             var img = document.getElementById("imagenInput").files[0].name;

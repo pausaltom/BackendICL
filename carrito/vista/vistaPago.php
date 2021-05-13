@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
+    <title>Resumen Pago</title>
     <style>
         table {
           width: 80%;
@@ -27,10 +27,10 @@
       }
       include("../../comun/conexionBD.php");
       $email =$_SESSION['usuario']['email'];
-      $verPedido=$mysqli->query("SELECT p.ID_Pedido,p.Comentario,u.Nombre,p.PrecioTotal,p.Hora,e.Estado,u.Direccion,u.Telefono FROM pedido p, usuario u, estado_pedido e WHERE(p.ID_Usuario=u.ID_Usuario AND p.ID_Estado=e.ID_Estado) AND(p.ID_Pedido=1)");
+      $verPedido=$mysqli->query("SELECT p.ID_Pedido as ID_Pedido,p.Comentario,p.Activo,u.Nombre,p.PrecioTotal,p.Hora,e.Estado,u.Direccion,u.Telefono FROM pedido p, usuario u, estado_pedido e WHERE(p.ID_Usuario=u.ID_Usuario AND p.ID_Estado=e.ID_Estado) AND(p.Activo=1)");
       $row = $verPedido->fetch_object(); 
     ?>
-    <label for="tablaProductos">P0000 <?php echo $row->ID_Usuario ?></label>
+    <label for="tablaProductos"><?php echo "P0000".$row->ID_Pedido ?></label>
     <table id="tablaProductos" style="width: 90%;">
         <thead>
           <th>Imagen:</th>
@@ -41,7 +41,19 @@
         </thead>
         <tbody id="tbody">
           <?php
-
+              $lineasPedido= $mysqli->query("SELECT * from linea_pedido WHERE ID_Pedido=$row->ID_Pedido");
+              
+              while($productos=$lineasPedido->fetch_object()) {
+            ?>
+                <tr>
+                  <td><img src="<?php echo "/php/uploads/" . $producto['Imagen']; ?>" width="70px" alt="Imagen Producto"></td>
+                  <td><?php echo $producto['Nombre']; ?></td>
+                  <td><?php echo $producto['Cantidad']; ?></td>
+                  <td><?php echo $producto['Precio']; ?>€</td>
+                  <td><?php echo "<a href='mostrarCarrito.php?item=$i'>Eliminar</a>"?></td>
+                </tr>
+            <?php
+              }  
           ?>
         </tbody>
         <div>
