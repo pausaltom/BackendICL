@@ -35,7 +35,10 @@
   }
   include("../../comun/conexionBD.php");
   $email = $_SESSION['usuario']['email'];
-  $verPedido = $mysqli->query("SELECT p.ID_Pedido as ID_Pedido,p.Comentario,p.Activo,u.Nombre,p.PrecioTotal,p.Hora,e.Estado,u.Direccion,u.Telefono FROM pedido p, usuario u, estado_pedido e WHERE(p.ID_Usuario=u.ID_Usuario AND p.ID_Estado=e.ID_Estado) AND(p.Activo=1)");
+  $result = $mysqli->query("SELECT * FROM usuario WHERE email='$email'");
+  $r=$result->fetch_object();
+  $id_usuario=$r->ID_Usuario;
+  $verPedido = $mysqli->query("SELECT p.ID_Pedido as ID_Pedido,p.Comentario,p.Activo,u.Nombre,p.PrecioTotal,p.Hora,e.Estado,u.Direccion,u.Telefono FROM pedido p, usuario u, estado_pedido e WHERE(p.ID_Usuario=$id_usuario AND p.ID_Estado=e.ID_Estado) AND(p.Activo=1)");
   $row = $verPedido->fetch_object();
   ?>
   <div id="card">
