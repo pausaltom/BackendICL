@@ -7,8 +7,6 @@
     
     
     $pagina=$_GET["pagina"];
-        
-    
 
     $empezar_desde = ($pagina-1) * $registrosPorPag;
     

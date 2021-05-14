@@ -22,6 +22,7 @@ function procesarCategorias() {
 
             
 function procesarProducto() {
+    //En este método se procesa la respuesta de la petición comprobarProducto
     if (this.readyState == 4 && this.status == 200) {
         var string = this.responseText;
         console.log('string ' + string);
@@ -31,10 +32,10 @@ function procesarProducto() {
         if (err[1] === "1" || err[1] === "2") {
             span.innerHTML = err[0];
             span.style = "color:red;";
-            document.getElementById("btnEnviar").setAttribute("disabled",true);
+            document.getElementById("btnEnviar").disabled = true;
             //divErr.appendChild(span1);
         } else if (err[1] === "0") {
-            document.getElementById("btnEnviar").setAttribute("disabled",false);
+            document.getElementById("btnEnviar").disabled =false; 
             span.innerHTML = err[0];
             span.style = "color:green;";
             var img = document.getElementById("imagenInput").files[0].name;
@@ -71,11 +72,12 @@ function previewImg(e) {
         preview.innerHTML = '';
         preview.append(image);
     };
-    //reader.readAsDataURL(e.target.files[0]);
+    //reader.readAsDataURL(e.target.files[0]); no tocar dejar comentado
 }
 
 var role;
 function procesarSession() {
+    //En caso de que la sessión no tenga los roles permitidos los envia de vuelta al login
     if (this.readyState == 4 && this.status == 200) {
         role = this.responseText;
         console.log('role ' + role);
@@ -85,6 +87,7 @@ function procesarSession() {
     }
 }
 function procesarIMG() {
+    //Procesamos lo que nos devuelve el mostrarImg.php devuelve un string con un "codigo" de numeración para poder diferenciar si la respuesta es buena o mala
     if (this.readyState == 4 && this.status == 200) {
         var str = this.responseText;
         console.log('img ' + str);
@@ -115,12 +118,14 @@ function loadEvents() {
 
 
 }
+//petición para comprobar la sessión
 function comprobarSession() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = procesarSession;
     xmlhttp.open("GET", "http://localhost/php/comun/comprobarSession.php", true);
     xmlhttp.send();
 }
+//petición para comprobar la Producto válido
 function comprobarProducto() {
     var formData = new FormData(document.getElementById("formularioProducto"));
     var xmlhttp = new XMLHttpRequest();
@@ -128,6 +133,7 @@ function comprobarProducto() {
     xmlhttp.open("POST", "http://localhost/php/admin/Producto/modelo/comprobarProducto.php", true);
     xmlhttp.send(formData);
 }
+//petición para procesar la imagen en el mostrarImg.php
 function imagen() {
     var formData = new FormData(document.getElementById("formimg"));
     var xmlhttp = new XMLHttpRequest();
@@ -135,7 +141,7 @@ function imagen() {
     xmlhttp.open("POST", "http://localhost/php/comun/mostrarImg.php", true);
     xmlhttp.send(formData);
 }
-
+//petición para recibir todas las categorias para poder hacer el desplegable
 function loadCategorias() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = procesarCategorias;

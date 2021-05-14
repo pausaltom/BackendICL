@@ -10,7 +10,7 @@ function pasarApagar() {
     formData.append("comentario",coment);
     formData.append("subtotal",subtotal);
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange=respPago;
+    xmlhttp.onreadystatechange= respPago;
     xmlhttp.open("POST", "http://localhost/php/carrito/modelo/pagar.php", true);
     xmlhttp.send(formData);
 }
@@ -20,9 +20,13 @@ function respPago() {
         console.log(string)
         let respOK= string.split("/");
         if (respOK[1]==="1") {
+            alert(respOK[0]);
             window.location="../vista/vistaPago.php";
-        } else {
-            alert("error al realizar el pago");
+        } else if (respOK[1]==="2") {
+            alert(respOK[0]);
+            window.location="../../Productos/vista/listaProductos.html";
+        }else{
+            alert(respOK[0]);
         }
     }
 }

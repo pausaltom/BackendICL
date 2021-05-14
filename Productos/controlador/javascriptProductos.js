@@ -80,6 +80,7 @@ function cambiarCantidad() {
         //console.log(cantidad.value);
         //console.log(cantidad);
         //console.log(this.value);
+        
         añadirProductoCarrito(this.value, cantidad.value);
     }
 
@@ -92,7 +93,14 @@ function rutaImagen(imgName) {
 function respCarrito() {
     if (this.readyState == 4 && this.status == 200) {
         let string = this.responseText;
-        console.log('str' + string);
+        //console.log('str' + string);
+        let ArrayStringResp=string.split("/");
+        if (ArrayStringResp[1]==="0") {
+            let nombreCantidad=ArrayStringResp[0].split("#");
+            alert(`${nombreCantidad[1]} ${nombreCantidad[0]} añadido al carrito correctamente`);
+        }else{
+            alert(ArrayStringResp[0]);
+        }
     }
 }
 var role;

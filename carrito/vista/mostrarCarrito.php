@@ -88,8 +88,6 @@
   </div>
   <a style="margin-right: 5px;" href="../../Productos/vista/listaProductos.html">Volver</a>
   <a href="../modelo/vaciarCarritoTodo.php">Vaciar Carrito</a>
-  <button value="<?php echo $subTotal?>" id="pagar">Pagar</button>
-    
+  <button value="<?php echo $subTotal?>" id="pagar">Pagar</button>  
 </body>
-
 </html>
