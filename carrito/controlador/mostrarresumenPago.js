@@ -1,5 +1,5 @@
 function formatoDireccion() {
-    let direccion = document.getElementById("Dirección").textContent;
+    let direccion = document.getElementById("direccion").textContent;
     console.log('dir: ' + direccion);
     let direccionsinbarras = direccion.split("//");
     console.log('Sin barras ' + direccionsinbarras);

@@ -8,13 +8,13 @@ if (!isset($_SESSION["usuario"]) || ($_SESSION['usuario']['ID_Role'] == '2')) {
     if (isset($_POST['nombreProducto']) || isset($_POST['precioProducto'])) {
        $nombre = $_POST['nombreProducto'];
        $precio = $_POST['precioProducto'];
-       $categoria = $_POST['categoriaProducto'];
+       
     }
    
     include("../../../comun/conexionBD.php");
     
     
-    $result = $mysqli->query("SELECT * from producto WHERE Nombre LIKE '$nombre'");
+    $result = $mysqli->query("SELECT * from producto WHERE Nombre='$nombre'");
     echo ($mysqli->error);
 
     if (mysqli_num_rows($result) != 0) {

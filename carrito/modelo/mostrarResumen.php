@@ -7,6 +7,4 @@
     include("../../comun/conexionBD.php");
     $resultado = $mysqli->query("SELECT * from usuario where Email='$email'");
 
-
-
 ?>

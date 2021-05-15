@@ -1,6 +1,5 @@
 function procesarCategorias() {
     var selectorCategoria = document.getElementById("categoriaProducto");
-
     if (this.readyState == 4 && this.status == 200) {
         var stringAll = this.responseText;
         //console.log('string'+stringAll);
@@ -12,22 +11,18 @@ function procesarCategorias() {
             var arraycomponentesCat = arrayliCat[i].split("/");
             selectorCategoria.innerHTML += "<option value=" + arraycomponentesCat[0] + ">" + arraycomponentesCat[1] + "</option>" + "\n"
             //console.log("arrayComponents "+arraycomponentesCat[1]);
-
         }
-
-
-
     }
 }
 
-            
+
 function procesarProducto() {
-    //En este método se procesa la respuesta de la petición comprobarProducto
+    //En este método se procesa la respuesta de la petición comprobarProducto para mirar si ya existe algún producto con este nombre
     if (this.readyState == 4 && this.status == 200) {
         var string = this.responseText;
-        console.log('string ' + string);
+        //console.log('string ' + string);
         var err = string.split("/");
-        console.log('err ' + err);
+        //console.log('err ' + err);
         var span = document.getElementById("spanErr");
         if (err[1] === "1" || err[1] === "2") {
             span.innerHTML = err[0];
@@ -35,7 +30,7 @@ function procesarProducto() {
             document.getElementById("btnEnviar").disabled = true;
             //divErr.appendChild(span1);
         } else if (err[1] === "0") {
-            document.getElementById("btnEnviar").disabled =false; 
+            document.getElementById("btnEnviar").disabled = false;
             span.innerHTML = err[0];
             span.style = "color:green;";
             var img = document.getElementById("imagenInput").files[0].name;
@@ -43,16 +38,13 @@ function procesarProducto() {
             var catValue = selectorcategoria.options[selectorcategoria.selectedIndex].value;
             var catInt = parseInt(catValue);
             document.getElementById("IDcategoria").setAttribute("value", catInt);
-            console.log("nIMG " + img)
+            //console.log("nIMG " + img)
             document.getElementById("imagen").setAttribute("value", img);
         }
-
-
-
     }
 }
 
-
+//Esta función se utiliza para poder ver la img antes de enviarla a la carpeta de imágenes del servidor en este caso uploads
 function previewImg(e) {
     // Creamos el objeto de la clase FileReader
     let reader = new FileReader();
@@ -74,13 +66,13 @@ function previewImg(e) {
     };
     //reader.readAsDataURL(e.target.files[0]); no tocar dejar comentado
 }
-
+//iniciaríamos role como una variable global, ya que en alguna parte del código se necesita para comprobaciones 
 var role;
 function procesarSession() {
     //En caso de que la sessión no tenga los roles permitidos los envia de vuelta al login
     if (this.readyState == 4 && this.status == 200) {
         role = this.responseText;
-        console.log('role ' + role);
+        //console.log('role ' + role);
         if (!(role === "ADMINSESSION" || role === "SUPERADMINSESSION")) {
             window.location = "../../../comun/logout.php";
         }
@@ -90,9 +82,9 @@ function procesarIMG() {
     //Procesamos lo que nos devuelve el mostrarImg.php devuelve un string con un "codigo" de numeración para poder diferenciar si la respuesta es buena o mala
     if (this.readyState == 4 && this.status == 200) {
         var str = this.responseText;
-        console.log('img ' + str);
+        //console.log('img ' + str);
         var imgNombre = str.split("/");
-        console.log("imgNom " + imgNombre);
+        //console.log("imgNom " + imgNombre);
         var span = document.getElementById("spanErr");
         if (imgNombre[1] === "1" || imgNombre[1] === "2") {
             span.innerHTML = imgNombre[0];
@@ -109,7 +101,7 @@ function loadEvents() {
     //previsualizamos imagen y la enviamos a la carpeta uploads de nuestro servidor
     var inputIMG = document.getElementById("imagenInput");
     inputIMG.addEventListener("change", previewImg);
-    document.getElementById("enviar").addEventListener("click", imagen);
+    inputIMG.addEventListener("input", imagen);
     //--------------------------------------------------------------------
     //al validar la creación de productos miramos que no hay ningún producto creado con ese nombre
     var btnValidar = document.getElementById("btnValidar");

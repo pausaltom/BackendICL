@@ -93,7 +93,7 @@
         <span class="validity"></span>
         </br>
         </br>
-        <input type="checkbox" id="politicas" style="margin-right: 1em;" name="politicas" required></input> He leido y
+        <input type="checkbox" id="politicas" style="margin-right: 1em;" name="politicas" required></input> He leído y
         acepto la <a href="../politicasdeprivacidad.html">Políticas de Privacidad</a>
         </br>
         <span id="erroresForm" style="color: red;"></span>
