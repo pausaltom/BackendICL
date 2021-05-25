@@ -9,84 +9,61 @@ function procesarPedidos() {
 
         var paginacion = string.slice(k + 1, string.length);
         totalPag = parseInt(paginacion);
-        console.log('pag:' + paginacion);
+        // console.log('pag:' + paginacion);
 
 
-         var stringPedidos = string.slice(0, k);
-
-        console.log('string' + stringPedidos);
-        var arrayliPedidos = stringPedidos.split("/_&_/").filter(Boolean);
-        console.log('arrayliPedidos  '+arrayliPedidos);
+        var stringPedidos = string.slice(0, k);
+        //console.log('string' + stringPedidos);
+        
+        var arrayliPedidos = stringPedidos.split("//", 5);//cambiar el 5 si queremos cambiar el número de registros por pag
+        // console.log('arrayliPedidos  ' + arrayliPedidos);
         var numero = 1;
         arrayliPedidos.forEach(element => {
             var arrayCadaPedido = element.split('/__/');
-            console.log('arrayCadaPedido '+arrayCadaPedido);
-            var tbody = document.getElementById("tbody");
-            console.log('Cod pedido: '+arrayCadaPedido[0]);
-            console.log('Nombre cliente: '+arrayCadaPedido[1]);
-            console.log('Teléfono: '+arrayCadaPedido[2]);
-            console.log('Dirección: '+arrayCadaPedido[3]);
-            console.log('Comentario: '+arrayCadaPedido[4]);
-            console.log('Precio total: '+arrayCadaPedido[5]);
-            console.log('Hora: '+arrayCadaPedido[6]);
-            console.log('Estado: '+arrayCadaPedido[7]);
-            console.log('ID_Estado: '+arrayCadaPedido[8]);
-            console.log('Activo: '+arrayCadaPedido[9].toString());
-             
+            // console.log('arrayCadaPedido ' + arrayCadaPedido);
+            // console.log('Cod pedido: ' + arrayCadaPedido[0]);
+            // console.log('Nombre cliente: ' + arrayCadaPedido[1]);
+            // console.log('Teléfono: ' + arrayCadaPedido[2]);
+            // console.log('Dirección: ' + arrayCadaPedido[3]);
+            // console.log('Comentario: ' + arrayCadaPedido[4]);
+            // console.log('Precio total: ' + arrayCadaPedido[5]);
+            // console.log('Hora: ' + arrayCadaPedido[6]);
+            // console.log('Estado: ' + arrayCadaPedido[7]);
+            // console.log('ID_Estado: ' + arrayCadaPedido[8]);
+            // console.log('Activo: ' + arrayCadaPedido[9]);
+            var td1 = document.getElementById(numero+"td1");
+            td1.innerHTML = arrayCadaPedido[0]
+            var td2 = document.getElementById(numero+"td2");
+            td2.innerHTML = arrayCadaPedido[1];
+            var td3 = document.getElementById(numero+"td3");
+            td3.innerHTML = arrayCadaPedido[2];
+            var td4 = document.getElementById(numero+"td4");
+            td4.innerHTML = arrayCadaPedido[3];
+            var td5 = document.getElementById(numero+"td5");
+            td5.innerHTML = arrayCadaPedido[4];
+            var td6 = document.getElementById(numero+"td6");
+            td6.innerHTML = arrayCadaPedido[5] + "€";
+            var td7 = document.getElementById(numero+"td7");
+            td7.innerHTML = arrayCadaPedido[6];
+            var td8 = document.getElementById(numero+"td8");
+            if(arrayCadaPedido[8]==6) {
+                console.log(arrayCadaPedido[8]);
+                td8.innerHTML = arrayCadaPedido[7].fontcolor("red");
+            } else if(arrayCadaPedido[8]==5) {
+                td8.innerHTML = arrayCadaPedido[7].fontcolor("yellow");
+            } else if(arrayCadaPedido[8] ==4) {
+                td8.innerHTML = arrayCadaPedido[7].fontcolor("green");
+            }else{
+                td8.innerHTML = arrayCadaPedido[7];
+            }
            
- 
- 
- 
- 
- 
-           
- 
-            // var tr = document.createElement("tr");
-            // var td1 = document.createElement("td");
-            // var img = document.createElement("img");
-            // img.src = rutaImagen(arrayCadaPedido[1]);
-            // img.width = 200;
-            // img.alt = "Imagen Pedido";
-            // td1.appendChild(img);
-            // var td2 = document.createElement("td");
-            // td2.innerHTML = arrayCadaPedido[2];
-            // var td3 = document.createElement("td");
-            // td3.innerHTML = arrayCadaPedido[3] + "€";
-            // var td4 = document.createElement("td");
-            // if (role != "NOSESSION" && role != "USERSESSION") {
-            //     var editar = document.createElement("a");
-            //     editar.href = "../../admin/Pedido/vista/editarPedido.html?idProduct=" + arrayCadaPedido[0];
-            //     //console.log(editar.id);
-            //     //editar.value = arrayCadaPedido[0];
-            //     editar.innerHTML = "Editar";
-            //     td4.appendChild(editar);
-            // } else {
-            //     var anadir = document.createElement("button");
-            //     var cantidad = document.createElement("input");
-            //     anadir.innerHTML = "Añadir";
-            //     anadir.id = "anadir" + numero;
-            //     anadir.value = arrayCadaPedido[0];
-            //     cantidad.type = "number";
-            //     cantidad.min = 1;
-            //     cantidad.max = 50;
-            //     cantidad.value = 1;
-            //     cantidad.id = "cantidad" + numero;
-            //     cantidad.style = "width=30px;margin-rigth=10px";
-            //     anadir.onclick = cambiarCantidad;
-
-            //     //anadir.href="../../carrito/vista/carrito.html?idProduct="+arrayCadaPedido[0];
-            //     anadir.append(cantidad);
-            //     td4.appendChild(anadir);
-            //     td4.insertBefore(cantidad, anadir);
-            //     numero++;
-            // }
-            // tbody.appendChild(tr);
-            // tr.appendChild(td1);
-            // tr.appendChild(td2);
-            // tr.appendChild(td3);
-            // tr.appendChild(td4);
+            numero++;
         });
     }
+}
+function cambiarEstado(e) {
+    console.log(e.id);
+    
 }
 function respCarrito() {
     if (this.readyState == 4 && this.status == 200) {
@@ -111,17 +88,14 @@ function procesarSession() {
             window.location = "../../comun/logout.php";
         } else {
             if (role === "ADMINSESSION") {
-                console.log("role "+role);
-                return ;
+                console.log("role " + role);
+                return;
             } else {
                 window.location = "../../comun/logout.php";
             }
         }
 
     }
-}
-function limpiarTable() {
-    document.getElementById("tbody").innerHTML = "";
 }
 
 function loadEvents() {
@@ -130,7 +104,6 @@ function loadEvents() {
     document.getElementById("primera").addEventListener("click", () => {
         pagina = 1;
         //console.log("pagina"+pagina);
-        limpiarTable();
         loadPedidos();
     });
     document.getElementById("anterior").addEventListener("click", () => {
@@ -140,7 +113,6 @@ function loadEvents() {
             pagina--;
         }
         //console.log("pagina"+pagina);
-        limpiarTable();
         loadPedidos();
     });
     document.getElementById("siguiente").addEventListener("click", () => {
@@ -150,13 +122,11 @@ function loadEvents() {
             pagina++;
         }
         //console.log("pagina"+pagina);
-        limpiarTable();
         loadPedidos();
     });
     document.getElementById("ultima").addEventListener("click", () => {
         pagina = totalPag;
         //console.log("pagina"+pagina);
-        limpiarTable();
         loadPedidos();
     });
 
