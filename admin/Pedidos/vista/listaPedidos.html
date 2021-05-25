@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <script type="text/javascript" src="../controlador/javascriptPedidos.js"></script>
+    <style>
+      td{
+        text-align: center;
+      }
+      input{
+        margin-right: 10px;
+        
+      }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        window.addEventListener("load",loadEvents);      
+        
+    </script>    
+    <table id="tablaProductos" style="width: 90%;">
+        <thead>
+          <th>Cod pedido: </th>
+          <th>Nombre cliente: </th>
+          <th>Comentario: </th>
+          <th>Teléfono: </th>
+          <th>Hora: </th>
+          <th>Dirección: </th>
+          <th>Estado: </th>
+          <th>Precio total: </th>
+          <th>Acciones: </th>
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+        
+      </table>
+
+      <div id="paginacion">
+        <button id="primera" >Primera</button>
+        <button id="anterior" >Anterior</button>
+        <button id="siguiente" >Siguiente</button>
+        <button id="ultima" >Última</button>
+      </div>
+     
+</body>
+</html>

@@ -19,6 +19,28 @@ function procesarProducto() {
         precioProducto.setAttribute("value",arrayAtributosProduct[2]);
     }
 }
+//Esta función se utiliza para poder ver la img antes de enviarla a la carpeta de imágenes del servidor en este caso uploads
+function previewImg(e) {
+    // Creamos el objeto de la clase FileReader
+    let reader = new FileReader();
+
+    // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+    reader.readAsDataURL(e.target.files[0]);
+
+    // Le decimos que cuando este listo ejecute el código interno
+    reader.onload = function () {
+        let preview = document.getElementById('imagenFoto'),
+            image = document.createElement('img');
+
+        image.src = reader.result;
+        image.width = 200;
+        image.height = 200;
+
+        preview.innerHTML = '';
+        preview.append(image);
+    };
+    //reader.readAsDataURL(e.target.files[0]); no tocar dejar comentado
+}
 //retorna la ruta de la imagen asegurándose que no hay ningún espacio entre media
 function rutaImagen(imgName) {
     var rutaImgTemp = "/php/uploads/" + imgName;
@@ -77,6 +99,8 @@ function loadEvents() {
     var idProduct =getURLParams();
     document.getElementById("idProduct").setAttribute("value",idProduct);
     document.getElementById("idProduct1").setAttribute("value",idProduct);
+    var inputIMG = document.getElementById("imagenInput");
+    inputIMG.addEventListener("change", previewImg);
     document.getElementById("botonEnviar").addEventListener("click",()=>{
         location.reload();
     });

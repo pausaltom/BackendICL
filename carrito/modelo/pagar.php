@@ -1,7 +1,7 @@
 <?php
     session_start();
     if(!isset($_SESSION["usuario"])){
-        header("location: http://localhost/php/auth/login.html");
+        header("location: http://localhost/php/auth/logout.php");
     }
     include("../../comun/conexionBD.php");     
     

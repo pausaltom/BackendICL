@@ -12,7 +12,7 @@
     <?php
         session_start();
         if(!isset($_SESSION["usuario"])){
-            header("location: http://localhost/php/auth/login.html");
+            header("location: http://localhost/php/auth/logout.php");
         }
     ?>
     <h1>Bienvenidos a la mejor Pizzeria</h1>
@@ -25,6 +25,13 @@
          if($_SESSION['usuario']['ID_Role'] =='3'||$_SESSION['usuario']['ID_Role'] =='1'){
              ?>
              <p><a href="admin/Usuarios/vista/listaUsuarios.html">Lista Usuarios</a></p>
+             <?php
+         }
+    ?>
+    <?php
+         if($_SESSION['usuario']['ID_Role'] =='1'){
+             ?>
+             <p><a href="admin/Pedidos/vista/listaPedidos.html">Lista Pedidos</a></p>
              <?php
          }
     ?>

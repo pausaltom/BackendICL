@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION["usuario"]) || ($_SESSION['usuario']['ID_Role']=='2')) {
-    header("location: http://localhost/php/auth/login.html");
+    header("location: http://localhost/php/auth/logout.php");
 }
 
     $idProduct = $_POST['idProducto'];

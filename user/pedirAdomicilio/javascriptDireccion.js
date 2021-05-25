@@ -132,7 +132,7 @@ function comprobarCampos(){
         errorMsg.style="color:green";
         errorMsg.innerHTML="Dirección Válida";
         var direccionCompuesta = selectorProv.options[selectorProv.selectedIndex].text+".."+selectorMun.options[selectorMun.selectedIndex].text+
-        ".."+selectorCp.options[selectorCp.selectedIndex].text+".."+direccion.value+".."+numero.value+".."+piso.value+".."+bloque.value+".."+puerta.value+".."+escalera.value+"//";
+        ".."+selectorCp.options[selectorCp.selectedIndex].text+".."+direccion.value+".."+numero.value+".."+piso.value+".."+bloque.value+".."+puerta.value+".."+escalera.value;
 
         
         console.log('dirección comp: '+direccionCompuesta);

@@ -47,7 +47,7 @@
   <?php
   session_start();
   if (!isset($_SESSION["usuario"])) {
-    header("location: http://localhost/php/auth/login.html");
+    header("location: http://localhost/php/auth/logout.php");
   }
   include("../../comun/conexionBD.php");
   $email = $_SESSION['usuario']['email'];
@@ -84,6 +84,14 @@
           </tr>
         <?php
         }
+        ?>
+        <tr>
+          <td></td>
+          <td></td>
+          <td id="precioTotalText"><strong>Precio Total:</strong></td>
+          <td id="precioTotalNumero"><strong><?php echo $row->PrecioTotal?>€</strong></td>
+        </tr>
+        <?php
         ?>
       </tbody>
       <div id="aside">
