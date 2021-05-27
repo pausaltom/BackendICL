@@ -23,9 +23,7 @@
     }
     echo("#");
     echo($total_paginas);
-
    
-    
     $result->free();
     $mysqli->close();
 ?>

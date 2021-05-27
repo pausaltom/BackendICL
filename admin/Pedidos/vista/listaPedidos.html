@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Productos</title>
   <script type="text/javascript" src="../controlador/javascriptPedidos.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     td {
       text-align: center;
@@ -39,9 +40,10 @@
     </tbody>
     <!-- Hay que añadir manualmente los tr y td con sus id correspondiendo dependiendo del numero de registros que queramos mostrar por pantalla -->
   </table>
-  <div>
-    <select id="selectEstados" style="display: none;">
+  <div id="divCambioEstado" style="display: none;">
+    <select id="selectEstados" >
     </select>
+    <button id="btnConfirmarCambios">Confirmar</button>
   </div>
 
   <div id="paginacion">

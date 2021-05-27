@@ -16,7 +16,7 @@ function procesarPedidos() {
         //console.log('string' + stringPedidos);
 
         var arrayliPedidos = stringPedidos.split("//").filter(Boolean);
-         //console.log('arrayliPedidos  ' + arrayliPedidos);
+        //console.log('arrayliPedidos  ' + arrayliPedidos);
         var numero = 1;
         arrayliPedidos.forEach(element => {
             var arrayCadaPedido = element.split('/__');
@@ -33,10 +33,10 @@ function procesarPedidos() {
             // console.log('Activo: ' + arrayCadaPedido[9]);
             var td1 = document.createElement("td");
             td1.innerHTML = arrayCadaPedido[0];
-            td1.id=numero+"td1";
+            td1.id = numero + "td1";
             var td2 = document.createElement("td");
             td2.innerHTML = arrayCadaPedido[1];
-            td2.id=numero + "td2";
+            td2.id = numero + "td2";
             var td3 = document.createElement("td");
             td3.id = numero + "td3";
             td3.innerHTML = arrayCadaPedido[2];
@@ -56,23 +56,42 @@ function procesarPedidos() {
             td8.id = numero + "td8";
             if (arrayCadaPedido[8] == 6) {
                 console.log(arrayCadaPedido[8]);
-                td8.innerHTML = arrayCadaPedido[7].fontcolor("red");
+                td8.style.backgroundColor = "#F12222"
+                td8.innerHTML = arrayCadaPedido[7];
             } else if (arrayCadaPedido[8] == 5) {
-                td8.innerHTML = arrayCadaPedido[7].fontcolor("yellow");
+                td8.style.backgroundColor = "yellow"
+                td8.innerHTML = arrayCadaPedido[7];
             } else if (arrayCadaPedido[8] == 4) {
-                td8.innerHTML = arrayCadaPedido[7].fontcolor("green");
+                td8.style.backgroundColor = "#85F130"
+                td8.innerHTML = arrayCadaPedido[7];
+            } else if (arrayCadaPedido[8] == 3) {
+                td8.style.backgroundColor = "#85C1E9"
+                td8.innerHTML = arrayCadaPedido[7];
+            } else if (arrayCadaPedido[8] == 2) {
+                td8.style.backgroundColor = "#D9FF6B"
+                td8.innerHTML = arrayCadaPedido[7];
             } else {
+                td8.style.backgroundColor = "#E5E7E9"
                 td8.innerHTML = arrayCadaPedido[7];
             }
             var td9 = document.createElement("td");
             td9.id = numero + "td9";
-            let btnEstado=document.createElement("button");
+            let btnEstado = document.createElement("button");
+            btnEstado.id = numero + "btnEditar";
+            btnEstado.innerHTML = "Cambiar estado";
+            btnEstado.onclick = cambiarEstado;
+            let vistaPedidoPorID= document.createElement("a");
+            vistaPedidoPorID.innerText="Vista Detalle";
+            vistaPedidoPorID.href="../vista/vistaPedidoPorID.php?idPedido="+arrayCadaPedido[0];
+            
+            td9.appendChild(vistaPedidoPorID);
             td9.appendChild(btnEstado);
-            btnEstado.id=numero+"btnEditar";
-            btnEstado.innerHTML="Cambiar estado";
-            btnEstado.onclick= cambiarEstado;
-            let tbody= document.getElementById("tbody");
-            let tr =document.createElement("tr");
+            td9.insertBefore(btnEstado,vistaPedidoPorID);
+
+
+
+            let tbody = document.getElementById("tbody");
+            let tr = document.createElement("tr");
             tbody.appendChild(tr);
             tr.appendChild(td1);
             tr.appendChild(td2);
@@ -97,7 +116,7 @@ function cambiarEstado() {
     //console.log(idPedido)
     loadPedidoPorID();
     //let resp =enviarDatatoUpdateEstado();
-    
+
 }
 function procesarPedidoxID() {
     if (this.readyState == 4 && this.status == 200) {
@@ -105,10 +124,11 @@ function procesarPedidoxID() {
         //console.log('string: ' + string);
         let pedido = string.split("/");
         //console.log(pedido)
+        document.getElementById("divCambioEstado").style = "display:block";
         let selectEstados = document.getElementById("selectEstados");
-        selectEstados.style = "display:block";
+
         selectEstados.selectedIndex = pedido[1] - 1;
-        
+
     }
 }
 
@@ -142,10 +162,13 @@ function procesarEstado() {
 
 }
 
-function respUpdateEstado(){
+function respUpdateEstado() {
     if (this.readyState == 4 && this.status == 200) {
         var string = this.responseText;
-        
+        console.log('s: ' + string);
+        loadPedidos();
+        limpiarTable();
+        document.getElementById("divCambioEstado").style = "display:none";
 
 
     }
@@ -171,14 +194,39 @@ function procesarSession() {
     }
 }
 function limpiarTable() {
-    document.getElementById("tbody").innerHTML="";    
+    document.getElementById("tbody").innerHTML = "";
 }
 function loadEvents() {
     comprobarSession();
     loadEstado();
-    loadPedidos();    
-    let selectEstados=document.getElementById("selectEstados");
-    let optionsdelSelect=selectEstados.options;
+    loadPedidos();
+    let selectEstados = document.getElementById("selectEstados");
+    let botonConfirmar = document.getElementById("btnConfirmarCambios");
+    botonConfirmar.addEventListener("click", () => {
+        Swal.fire({
+            title: 'Estas seguro que desea cambiar el estado del pedido?',
+            text: "Recuerda que una vez confirmado va a cambiar el estado del pedido!",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Confirmar Cambio!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let indexOption = selectEstados.options[selectEstados.selectedIndex].value;
+                updateEstado(indexOption);
+                Swal.fire(
+                    'Estado actualizado!',
+                    'El estado del pedido se actualizado correctamente',
+                    'success'
+                )
+            }
+        })
+
+
+    })
+    /*let optionsdelSelect=selectEstados.options;
     console.log(optionsdelSelect);
     optionsdelSelect.addEventListener("click",()=>{
         let indexOption = selectEstados.options[selectEstados.selectedIndex].value;
@@ -188,12 +236,15 @@ function loadEvents() {
         let indexOption = selectEstados.options[selectEstados.selectedIndex].value;
         updateEstado(indexOption);
     });
-
+*/
     document.getElementById("primera").addEventListener("click", () => {
         pagina = 1;
+        setTimeout(function () {
+            loadPedidos();
+            limpiarTable();
+        }, 600);
         //console.log("pagina"+pagina);
-        loadPedidos();
-        limpiarTable();
+
     });
     document.getElementById("anterior").addEventListener("click", () => {
         if (pagina === 1) {
@@ -201,9 +252,13 @@ function loadEvents() {
         } else {
             pagina--;
         }
+        setTimeout(function () {
+            loadPedidos();
+            limpiarTable();
+        }, 600);
         //console.log("pagina"+pagina);
-        loadPedidos();
-        limpiarTable();
+        // loadPedidos();
+        // limpiarTable();
     });
     document.getElementById("siguiente").addEventListener("click", () => {
         if (pagina === totalPag) {
@@ -211,15 +266,23 @@ function loadEvents() {
         } else {
             pagina++;
         }
+        setTimeout(function () {
+            loadPedidos();
+            limpiarTable();
+        }, 600);
         //console.log("pagina"+pagina);
-        loadPedidos();
-        limpiarTable();
+        // loadPedidos();
+        // limpiarTable();
     });
     document.getElementById("ultima").addEventListener("click", () => {
         pagina = totalPag;
         //console.log("pagina"+pagina);
-        loadPedidos();
-        limpiarTable();
+        setTimeout(function () {
+            loadPedidos();
+            limpiarTable();
+        }, 600);
+        // loadPedidos();
+        // limpiarTable();
     });
 
 }
@@ -230,15 +293,15 @@ function comprobarSession() {
     xmlhttp.open("GET", "http://localhost/php/comun/comprobarSession.php", true);
     xmlhttp.send();
 }
-function updateEstado(idEstado){    
+function updateEstado(idEstado) {
     let formData = new FormData();
-    formData.append("idPedido",idPedido);
-    formData.append("idEstado",idEstado);
+    formData.append("idPedido", idPedido);
+    formData.append("idEstado", idEstado);
     console.log(`idPedido ${idPedido} i idEstado ${idEstado}`)
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = respUpdateEstado;
-    //xmlhttp.open("POST", "http://localhost/php/admin/Pedidos/modelo/cambiarEstados.php", true);
-    //xmlhttp.send(formData);
+    xmlhttp.open("POST", "http://localhost/php/admin/Pedidos/modelo/cambiarEstados.php", true);
+    xmlhttp.send(formData);
 }
 function loadEstado() {
     var xmlhttp = new XMLHttpRequest();
