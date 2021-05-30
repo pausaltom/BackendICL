@@ -7,6 +7,7 @@
   <meta http-equiv="refresh" content="30"><!-- al poner este metadata la pagina se recarga automáticamente cada x segundos en este caso  30 segundos  -->
   <title>Resumen Pago</title>
   <script type="text/javascript" src="../controlador/mostrarresumenPago.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     #card {
       position: relative;
@@ -57,6 +58,14 @@
 
   $verPedido = $mysqli->query("SELECT p.ID_Pedido as ID_Pedido,p.Comentario,p.Activo,u.Nombre,p.PrecioTotal,p.Hora,e.Estado,u.Direccion ,u.Telefono FROM pedido p, usuario u, estado_pedido e WHERE (u.ID_Usuario=$r->ID_Usuario)AND(p.ID_Usuario=u.ID_Usuario AND p.ID_Estado=e.ID_Estado) AND(p.Activo=1)");
   echo ($mysqli->error);
+  if (mysqli_num_rows($verPedido) <= 0) {
+  ?>
+    <script type="text/javascript">
+      window.location="../../Productos/vista/listaProductos.html?estadoActivo=0";
+    </script>
+
+  <?php
+  }
   $row = $verPedido->fetch_object();
   //echo $row->ID_Pedido." --- ".$row->Comentario." --- ".$row->Activo." --- ".$row->Nombre." --- ".$row->PrecioTotal." --- ".$row->Estado." --- ".$row->Direccion." --- ".$row->Telefono;
   ?>
@@ -89,7 +98,7 @@
           <td></td>
           <td></td>
           <td id="precioTotalText"><strong>Precio Total:</strong></td>
-          <td id="precioTotalNumero"><strong><?php echo $row->PrecioTotal?>€</strong></td>
+          <td id="precioTotalNumero"><strong><?php echo $row->PrecioTotal ?>€</strong></td>
         </tr>
         <?php
         ?>
@@ -108,47 +117,58 @@
           <ul id="direccionDescompuesta" style="list-style: none;">
             <label for="nombre"><strong>
                 Nombre: </strong>
-                  <li id="nombre"><?php echo $row->Nombre; ?></li></label>
+              <li id="nombre"><?php echo $row->Nombre; ?></li>
+            </label>
             <br>
             <label for="telefono"><strong>
                 Teléfono: </strong>
-                  <li id="telefono"><?php echo $row->Telefono; ?></li></label>
+              <li id="telefono"><?php echo $row->Telefono; ?></li>
+            </label>
             <br>
             <label for="provincia"><strong>
                 Provincia: </strong>
-                  <li id="provincia"></li></label>
+              <li id="provincia"></li>
+            </label>
             <br>
             <label for="municipio"><strong>
                 Municipio: </strong>
-                  <li id="municipio"></li></label>
+              <li id="municipio"></li>
+            </label>
             <br>
             <label for="cp"><strong>
                 Cp: </strong>
-                  <li id="cp"></li></label>
+              <li id="cp"></li>
+            </label>
             <br>
             <label for="Direccion"><strong>
                 Dirección: </strong>
-                  <li id="Direccion"></li></label>
+              <li id="Direccion"></li>
+            </label>
             <br>
             <label for="Numero"><strong>
                 Número: </strong>
-                  <li id="Numero"></li></label>
+              <li id="Numero"></li>
+            </label>
             <br>
             <label for="Piso"><strong>
                 Piso: </strong>
-                  <li id="Piso"></li></label>
+              <li id="Piso"></li>
+            </label>
             <br>
             <label for="Bloque"><strong>
                 Bloque: </strong>
-                  <li id="Bloque"></li></label>
+              <li id="Bloque"></li>
+            </label>
             <br>
             <label for="Puerta"><strong>
                 Puerta: </strong>
-                  <li id="Puerta"></li></label>
+              <li id="Puerta"></li>
+            </label>
             <br>
             <label for="Escalera"><strong>
                 Escalera: </strong>
-                  <li id="Escalera"></li></label>
+              <li id="Escalera"></li>
+            </label>
           </ul>
         </div>
         <div>

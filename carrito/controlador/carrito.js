@@ -1,7 +1,28 @@
 function loadEvents() {
-    document.getElementById("pagar").addEventListener("click",pasarApagar);
+    document.getElementById("pagar").addEventListener("click",comprobarTieneDireccion);
 }
+function comprobarTieneDireccion() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange= puedePagar;
+    xmlhttp.open("GET", "http://localhost/php/carrito/modelo/comprobarTieneDireccion.php", true);
+    xmlhttp.send();
+}
+function puedePagar() {
+    if (this.readyState == 4 && this.status == 200) {
+        let string = this.responseText;
+        console.log('hola : '+string);
+        let respPuede = string.split("/");
+        if (respPuede[1]==="1") {
+            pasarApagar();
+        } else {
+            alert(respPuede[0])
+            window.location="../../user/pedirAdomicilio/direccion.php";
+        }
+    
+    
+    }
 
+}
 function pasarApagar() {
     let formData = new FormData();
     var coment = document.getElementById("comentario").value;

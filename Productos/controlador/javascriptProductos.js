@@ -103,6 +103,14 @@ function respCarrito() {
         }
     }
 }
+function getURLParams() {
+    const queryString = window.location.search;
+    console.log(queryString);
+    const urlParams = new URLSearchParams(queryString);
+    const estadoActivo = urlParams.get('estadoActivo')
+    console.log(estadoActivo);
+    return estadoActivo;
+}
 var role;
 function procesarSession() {
 
@@ -131,6 +139,13 @@ function loadEvents() {
     document.getElementById("carrito").style.visibility = "visible";
     comprobarSession();
     loadProductos();
+    let errorPedido = getURLParams();
+    console.log(errorPedido)
+    if (errorPedido ==="0") {
+        document.getElementById("errores").innerText="Su Pedido ha sido descartado o finalizado";
+    } else {
+        
+    }
     document.getElementById("primera").addEventListener("click", () => {
         pagina = 1;
         //console.log("pagina"+pagina);
